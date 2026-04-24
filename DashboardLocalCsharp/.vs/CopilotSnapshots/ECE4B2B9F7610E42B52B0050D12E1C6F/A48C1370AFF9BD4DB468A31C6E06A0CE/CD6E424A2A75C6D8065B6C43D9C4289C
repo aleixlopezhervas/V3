@@ -102,7 +102,7 @@ namespace Formulario
 
     public class TraceMarker : GMapMarker
     {
-        private int traceSize = 4;
+        private int traceSize = 3;
 
         public TraceMarker(PointLatLng pos) : base(pos)
         {
@@ -113,7 +113,7 @@ namespace Formulario
         public override void OnRender(Graphics g)
         {
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            using (SolidBrush brush = new SolidBrush(Color.Red))
+            using (SolidBrush brush = new SolidBrush(Color.Yellow))
             {
                 g.FillEllipse(brush, LocalPosition.X, LocalPosition.Y, traceSize, traceSize);
             }

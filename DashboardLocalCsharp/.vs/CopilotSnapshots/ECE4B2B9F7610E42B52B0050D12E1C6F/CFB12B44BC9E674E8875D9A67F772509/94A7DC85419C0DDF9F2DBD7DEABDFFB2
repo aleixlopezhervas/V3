@@ -371,39 +371,6 @@ namespace Formulario
             currentAlt = alt;
             currentHeading = heading;
             posicionActualizada = true;
-
-            // Actualizar mapa de vuelo en tiempo real cuando está activa la misión
-            if (isFlying && flightGmap != null && !double.IsNaN(lat) && !double.IsNaN(lon))
-            {
-                var dronePos = new PointLatLng(lat, lon);
-
-                // Actualizar o crear marcador del dron en el mapa de vuelo
-                if (flightDroneMarker == null)
-                {
-                    flightDroneMarker = new RedDotMarker(dronePos, 8, heading);
-                    flightDroneOverlay.Markers.Add(flightDroneMarker);
-                }
-                else
-                {
-                    flightDroneMarker.Position = dronePos;
-                    ((RedDotMarker)flightDroneMarker).Heading = heading;
-                }
-
-                // Agregar punto al rastro si se ha movido una distancia significativa
-                if (flightTrace.Count == 0 || 
-                    Math.Abs(flightTrace[flightTrace.Count - 1].Lat - dronePos.Lat) > 0.000001 ||
-                    Math.Abs(flightTrace[flightTrace.Count - 1].Lng - dronePos.Lng) > 0.000001)
-                {
-                    flightTrace.Add(dronePos);
-
-                    // Actualizar el overlay del rastro de forma incremental
-                    var traceMarker = new TraceMarker(dronePos);
-                    flightTraceOverlay.Markers.Add(traceMarker);
-                }
-
-                // Refrescar mapa para mostrar cambios en tiempo real
-                flightGmap.Refresh();
-            }
         }
 
 
@@ -910,7 +877,6 @@ namespace Formulario
                 // Limpiar rastro después de completar
                 flightTrace.Clear();
                 flightDroneOverlay.Markers.Clear();
-                flightTraceOverlay.Markers.Clear();
                 flightGmap.Refresh();
 
                 Console.WriteLine("Vuelo completado.");
@@ -921,6 +887,42 @@ namespace Formulario
             // Comprobar si hemos llegado al waypoint actual
             if (double.IsNaN(currentLatDeg) || double.IsNaN(currentLonDeg))
                 return;
+
+            // Actualizar posición del dron en el mapa de vuelo
+            var dronePos = new PointLatLng(currentLatDeg, currentLonDeg);
+
+            // Agregar posición actual al rastro
+            if (flightTrace.Count == 0 || 
+                Math.Abs(flightTrace[flightTrace.Count - 1].Lat - dronePos.Lat) > 0.00001 ||
+                Math.Abs(flightTrace[flightTrace.Count - 1].Lng - dronePos.Lng) > 0.00001)
+            {
+                flightTrace.Add(dronePos);
+            }
+
+            // Actualizar o crear marcador del dron
+            if (flightDroneMarker == null)
+            {
+                flightDroneMarker = new RedDotMarker(dronePos, 8, currentHeading);
+                flightDroneOverlay.Markers.Add(flightDroneMarker);
+            }
+            else
+            {
+                flightDroneMarker.Position = dronePos;
+                ((RedDotMarker)flightDroneMarker).Heading = currentHeading;
+            }
+
+            // Dibujar el rastro
+            flightTraceOverlay.Markers.Clear();
+            for (int i = 0; i < flightTrace.Count - 1; i++)
+            {
+                // Crear puntos pequeños para el rastro
+                var tracePoint = new GMapMarker(flightTrace[i])
+                {
+                    Size = new Size(2, 2),
+                    Offset = new Point(-1, -1)
+                };
+                flightTraceOverlay.Markers.Add(tracePoint);
+            }
 
             var currentWaypoint = waypoints[currentWaypointIndex];
             double dLat = Math.Abs(currentLatDeg - currentWaypoint.Lat);
@@ -938,6 +940,8 @@ namespace Formulario
                     waypointsListBox.SelectedIndex = currentWaypointIndex;
                 }
             }
+
+            flightGmap.Refresh();
         }
     }
 

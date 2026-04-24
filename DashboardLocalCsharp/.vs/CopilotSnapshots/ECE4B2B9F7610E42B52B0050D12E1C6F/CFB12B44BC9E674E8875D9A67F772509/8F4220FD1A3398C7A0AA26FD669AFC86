@@ -371,39 +371,6 @@ namespace Formulario
             currentAlt = alt;
             currentHeading = heading;
             posicionActualizada = true;
-
-            // Actualizar mapa de vuelo en tiempo real cuando está activa la misión
-            if (isFlying && flightGmap != null && !double.IsNaN(lat) && !double.IsNaN(lon))
-            {
-                var dronePos = new PointLatLng(lat, lon);
-
-                // Actualizar o crear marcador del dron en el mapa de vuelo
-                if (flightDroneMarker == null)
-                {
-                    flightDroneMarker = new RedDotMarker(dronePos, 8, heading);
-                    flightDroneOverlay.Markers.Add(flightDroneMarker);
-                }
-                else
-                {
-                    flightDroneMarker.Position = dronePos;
-                    ((RedDotMarker)flightDroneMarker).Heading = heading;
-                }
-
-                // Agregar punto al rastro si se ha movido una distancia significativa
-                if (flightTrace.Count == 0 || 
-                    Math.Abs(flightTrace[flightTrace.Count - 1].Lat - dronePos.Lat) > 0.000001 ||
-                    Math.Abs(flightTrace[flightTrace.Count - 1].Lng - dronePos.Lng) > 0.000001)
-                {
-                    flightTrace.Add(dronePos);
-
-                    // Actualizar el overlay del rastro de forma incremental
-                    var traceMarker = new TraceMarker(dronePos);
-                    flightTraceOverlay.Markers.Add(traceMarker);
-                }
-
-                // Refrescar mapa para mostrar cambios en tiempo real
-                flightGmap.Refresh();
-            }
         }
 
 
@@ -803,12 +770,8 @@ namespace Formulario
                     waypoints.Clear();
                     waypointsListBox.Items.Clear();
                     flightWaypointsOverlay.Markers.Clear();
-                    flightTrace.Clear();
-                    flightDroneOverlay.Markers.Clear();
 
                     string[] lines = File.ReadAllLines(openFileDialog.FileName);
-                    int waypointCount = 0;
-
                     foreach (string line in lines)
                     {
                         string trimmedLine = line.Trim();
@@ -818,12 +781,11 @@ namespace Formulario
                         string[] parts = trimmedLine.Split(new[] { ',', ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
                         if (parts.Length >= 2 && double.TryParse(parts[0], out double lat) && double.TryParse(parts[1], out double lon))
                         {
-                            waypointCount++;
                             waypoints.Add(new PointLatLng(lat, lon));
-                            waypointsListBox.Items.Add($"WP {waypointCount}: ({lat:F6}, {lon:F6})");
+                            waypointsListBox.Items.Add($"WP {waypoints.Count}: ({lat:F6}, {lon:F6})");
 
-                            // Agregar marcador personalizado con número
-                            var marker = new WaypointMarker(new PointLatLng(lat, lon), waypointCount);
+                            // Agregar marcador al mapa
+                            var marker = new GMarkerGoogle(new PointLatLng(lat, lon), GMarkerGoogleType.blue);
                             flightWaypointsOverlay.Markers.Add(marker);
                         }
                     }
@@ -854,9 +816,6 @@ namespace Formulario
 
             isFlying = true;
             currentWaypointIndex = 0;
-            flightTrace.Clear();
-            flightDroneOverlay.Markers.Clear();
-
             startFlightBtn.Enabled = false;
             loadWaypointsBtn.Enabled = false;
 
@@ -889,12 +848,6 @@ namespace Formulario
             startFlightBtn.Enabled = true;
             loadWaypointsBtn.Enabled = true;
             currentWaypointIndex = 0;
-
-            // Limpiar rastro y dron del mapa
-            flightTrace.Clear();
-            flightDroneOverlay.Markers.Clear();
-            flightGmap.Refresh();
-
             Console.WriteLine("Vuelo detenido.");
         }
 
@@ -906,13 +859,6 @@ namespace Formulario
                 waypointTimer.Stop();
                 startFlightBtn.Enabled = true;
                 loadWaypointsBtn.Enabled = true;
-
-                // Limpiar rastro después de completar
-                flightTrace.Clear();
-                flightDroneOverlay.Markers.Clear();
-                flightTraceOverlay.Markers.Clear();
-                flightGmap.Refresh();
-
                 Console.WriteLine("Vuelo completado.");
                 MessageBox.Show("Vuelo completado - Todos los waypoints alcanzados.");
                 return;
