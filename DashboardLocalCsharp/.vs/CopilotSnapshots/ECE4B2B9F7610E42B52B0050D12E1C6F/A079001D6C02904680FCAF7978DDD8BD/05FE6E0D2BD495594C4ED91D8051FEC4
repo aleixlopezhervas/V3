@@ -100,61 +100,6 @@ namespace Formulario
         }
     }
 
-    public class ArrowMarker : GMapMarker
-    {
-        private double heading; // Ángulo en grados
-        private int arrowSize = 5; // Más pequeño
-
-        public ArrowMarker(PointLatLng pos, double heading) : base(pos)
-        {
-            this.heading = heading;
-            Size = new Size(arrowSize * 2, arrowSize * 2);
-            Offset = new Point(-arrowSize, -arrowSize);
-        }
-
-        public override void OnRender(Graphics g)
-        {
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-
-            int cx = LocalPosition.X + arrowSize;
-            int cy = LocalPosition.Y + arrowSize;
-
-            // Convertir ángulo a radianes
-            double angleRad = heading * Math.PI / 180.0;
-
-            // Punto principal de la flecha (punta)
-            int tipX = cx + (int)(arrowSize * 0.8 * Math.Cos(angleRad));
-            int tipY = cy + (int)(arrowSize * 0.8 * Math.Sin(angleRad));
-
-            // Puntos de la base de la flecha (cola) - ángulo de 150 grados
-            double backAngle1 = angleRad + 2.618; // 150 grados
-            double backAngle2 = angleRad - 2.618; // -150 grados
-
-            int baseX1 = cx + (int)(arrowSize * 0.6 * Math.Cos(backAngle1));
-            int baseY1 = cy + (int)(arrowSize * 0.6 * Math.Sin(backAngle1));
-            int baseX2 = cx + (int)(arrowSize * 0.6 * Math.Cos(backAngle2));
-            int baseY2 = cy + (int)(arrowSize * 0.6 * Math.Sin(backAngle2));
-
-            // Dibujar la flecha (triángulo relleno) - más compacta
-            Point[] arrowPoints = { 
-                new Point(tipX, tipY), 
-                new Point(baseX1, baseY1), 
-                new Point(baseX2, baseY2) 
-            };
-
-            using (SolidBrush brush = new SolidBrush(Color.Blue))
-            {
-                g.FillPolygon(brush, arrowPoints);
-            }
-
-            // Dibujar borde azul oscuro
-            using (Pen pen = new Pen(Color.DodgerBlue, 1))
-            {
-                g.DrawPolygon(pen, arrowPoints);
-            }
-        }
-    }
-
     public class TraceMarker : GMapMarker
     {
         private int traceSize = 4;

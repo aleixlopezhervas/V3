@@ -61,7 +61,6 @@ namespace Formulario
 
         // Variables para vuelo de waypoints
         private GMapControl flightGmap;
-        private GMapOverlay flightWaypointLinesOverlay;
         private GMapOverlay flightWaypointsOverlay;
         private GMapOverlay flightDroneOverlay;
         private GMapOverlay flightTraceOverlay;
@@ -784,9 +783,6 @@ namespace Formulario
             flightTraceOverlay = new GMapOverlay("trace");
             flightGmap.Overlays.Add(flightTraceOverlay);
 
-            flightWaypointLinesOverlay = new GMapOverlay("waypoint_lines");
-            flightGmap.Overlays.Add(flightWaypointLinesOverlay);
-
             flightWaypointsOverlay = new GMapOverlay("waypoints");
             flightGmap.Overlays.Add(flightWaypointsOverlay);
 
@@ -807,8 +803,6 @@ namespace Formulario
                     waypoints.Clear();
                     waypointsListBox.Items.Clear();
                     flightWaypointsOverlay.Markers.Clear();
-                    flightWaypointLinesOverlay.Markers.Clear();
-                    flightWaypointLinesOverlay.Routes.Clear();
                     flightTrace.Clear();
                     flightDroneOverlay.Markers.Clear();
 
@@ -832,15 +826,6 @@ namespace Formulario
                             var marker = new WaypointMarker(new PointLatLng(lat, lon), waypointCount);
                             flightWaypointsOverlay.Markers.Add(marker);
                         }
-                    }
-
-                    // Conectar waypoints con líneas azules finas
-                    for (int i = 0; i < waypoints.Count - 1; i++)
-                    {
-                        // Dibujar línea conectando waypoint actual con el siguiente
-                        var route = new GMapRoute(new List<PointLatLng> { waypoints[i], waypoints[i + 1] }, "route");
-                        route.Stroke = new Pen(Color.Blue, 1);
-                        flightWaypointLinesOverlay.Routes.Add(route);
                     }
 
                     waypointsLabel.Text = $"Waypoints ({waypoints.Count})";
@@ -908,7 +893,6 @@ namespace Formulario
             // Limpiar rastro y dron del mapa
             flightTrace.Clear();
             flightDroneOverlay.Markers.Clear();
-            flightTraceOverlay.Markers.Clear();
             flightGmap.Refresh();
 
             Console.WriteLine("Vuelo detenido.");
@@ -923,15 +907,14 @@ namespace Formulario
                 startFlightBtn.Enabled = true;
                 loadWaypointsBtn.Enabled = true;
 
-                Console.WriteLine("Vuelo completado.");
-                MessageBox.Show("Vuelo completado - Todos los waypoints alcanzados.");
-
-                // Limpiar rastro DESPUÉS de que el usuario acepta el diálogo
+                // Limpiar rastro después de completar
                 flightTrace.Clear();
                 flightDroneOverlay.Markers.Clear();
                 flightTraceOverlay.Markers.Clear();
                 flightGmap.Refresh();
 
+                Console.WriteLine("Vuelo completado.");
+                MessageBox.Show("Vuelo completado - Todos los waypoints alcanzados.");
                 return;
             }
 

@@ -834,13 +834,27 @@ namespace Formulario
                         }
                     }
 
-                    // Conectar waypoints con líneas azules finas
+                    // Conectar waypoints con líneas azules finas + flecha al final
                     for (int i = 0; i < waypoints.Count - 1; i++)
                     {
                         // Dibujar línea conectando waypoint actual con el siguiente
                         var route = new GMapRoute(new List<PointLatLng> { waypoints[i], waypoints[i + 1] }, "route");
                         route.Stroke = new Pen(Color.Blue, 1);
                         flightWaypointLinesOverlay.Routes.Add(route);
+
+                        // Calcular ángulo hacia el siguiente waypoint para la flecha
+                        double dLat = waypoints[i + 1].Lat - waypoints[i].Lat;
+                        double dLon = waypoints[i + 1].Lng - waypoints[i].Lng;
+                        double angle = Math.Atan2(dLon, dLat) * 180 / Math.PI;
+
+                        // Colocar flecha en el medio del camino (75% del recorrido) para evitar sobreposición
+                        double arrowLat = waypoints[i].Lat + (dLat * 0.75);
+                        double arrowLon = waypoints[i].Lng + (dLon * 0.75);
+                        PointLatLng arrowPos = new PointLatLng(arrowLat, arrowLon);
+
+                        // Crear marcador de flecha
+                        var arrowMarker = new ArrowMarker(arrowPos, angle);
+                        flightWaypointLinesOverlay.Markers.Add(arrowMarker);
                     }
 
                     waypointsLabel.Text = $"Waypoints ({waypoints.Count})";
@@ -923,15 +937,14 @@ namespace Formulario
                 startFlightBtn.Enabled = true;
                 loadWaypointsBtn.Enabled = true;
 
-                Console.WriteLine("Vuelo completado.");
-                MessageBox.Show("Vuelo completado - Todos los waypoints alcanzados.");
-
-                // Limpiar rastro DESPUÉS de que el usuario acepta el diálogo
+                // Limpiar rastro después de completar
                 flightTrace.Clear();
                 flightDroneOverlay.Markers.Clear();
                 flightTraceOverlay.Markers.Clear();
                 flightGmap.Refresh();
 
+                Console.WriteLine("Vuelo completado.");
+                MessageBox.Show("Vuelo completado - Todos los waypoints alcanzados.");
                 return;
             }
 

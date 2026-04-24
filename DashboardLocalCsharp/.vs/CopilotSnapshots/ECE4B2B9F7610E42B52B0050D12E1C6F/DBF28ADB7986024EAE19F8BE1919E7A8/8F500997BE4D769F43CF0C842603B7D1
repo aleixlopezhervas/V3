@@ -923,15 +923,14 @@ namespace Formulario
                 startFlightBtn.Enabled = true;
                 loadWaypointsBtn.Enabled = true;
 
-                Console.WriteLine("Vuelo completado.");
-                MessageBox.Show("Vuelo completado - Todos los waypoints alcanzados.");
-
-                // Limpiar rastro DESPUÉS de que el usuario acepta el diálogo
+                // Limpiar rastro después de completar
                 flightTrace.Clear();
                 flightDroneOverlay.Markers.Clear();
                 flightTraceOverlay.Markers.Clear();
                 flightGmap.Refresh();
 
+                Console.WriteLine("Vuelo completado.");
+                MessageBox.Show("Vuelo completado - Todos los waypoints alcanzados.");
                 return;
             }
 
