@@ -96,127 +96,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AlturatrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Alt_changeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.videoPictureBox)).BeginInit();
-            this.tabPageControl.SuspendLayout();
-            this.tabPageFlight.SuspendLayout();
-            this.mainTabControl.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // mainTabControl
-            // 
-            this.mainTabControl.Controls.Add(this.tabPageControl);
-            this.mainTabControl.Controls.Add(this.tabPageFlight);
-            this.mainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainTabControl.Location = new System.Drawing.Point(0, 0);
-            this.mainTabControl.Name = "mainTabControl";
-            this.mainTabControl.SelectedIndex = 0;
-            this.mainTabControl.Size = new System.Drawing.Size(1037, 1055);
-            this.mainTabControl.TabIndex = 54;
-            // 
-            // tabPageControl
-            // 
-            this.tabPageControl.AutoScroll = true;
-            this.tabPageControl.Controls.Add(this.detectionPanel);
-            this.tabPageControl.Controls.Add(this.galleryBtn);
-            this.tabPageControl.Controls.Add(this.captureBtn);
-            this.tabPageControl.Controls.Add(this.stopVideoBtn);
-            this.tabPageControl.Controls.Add(this.startVideoBtn);
-            this.tabPageControl.Controls.Add(this.videoPictureBox);
-            this.tabPageControl.Controls.Add(this.mapPanel);
-            this.tabPageControl.Controls.Add(this.label8);
-            this.tabPageControl.Controls.Add(this.AltChangeLbl);
-            this.tabPageControl.Controls.Add(this.Alt_changeTrackBar);
-            this.tabPageControl.Controls.Add(this.label1);
-            this.tabPageControl.Controls.Add(this.AlturaLbl);
-            this.tabPageControl.Controls.Add(this.AlturatrackBar);
-            this.tabPageControl.Controls.Add(this.groupBox4);
-            this.tabPageControl.Controls.Add(this.label4);
-            this.tabPageControl.Controls.Add(this.headingTrackBar);
-            this.tabPageControl.Controls.Add(this.headingLbl);
-            this.tabPageControl.Controls.Add(this.label9);
-            this.tabPageControl.Controls.Add(this.velocidadLbl);
-            this.tabPageControl.Controls.Add(this.velocidadTrackBar);
-            this.tabPageControl.Controls.Add(this.groupBox2);
-            this.tabPageControl.Controls.Add(this.groupBox1);
-            this.tabPageControl.Location = new System.Drawing.Point(4, 25);
-            this.tabPageControl.Name = "tabPageControl";
-            this.tabPageControl.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageControl.Size = new System.Drawing.Size(1029, 1026);
-            this.tabPageControl.TabIndex = 0;
-            this.tabPageControl.Text = "Control";
-            this.tabPageControl.UseVisualStyleBackColor = true;
-            // 
-            // tabPageFlight
-            // 
-            this.tabPageFlight.Controls.Add(this.waypointsLabel);
-            this.tabPageFlight.Controls.Add(this.waypointsListBox);
-            this.tabPageFlight.Controls.Add(this.stopFlightBtn);
-            this.tabPageFlight.Controls.Add(this.startFlightBtn);
-            this.tabPageFlight.Controls.Add(this.loadWaypointsBtn);
-            this.tabPageFlight.Controls.Add(this.flightMapPanel);
-            this.tabPageFlight.Location = new System.Drawing.Point(4, 25);
-            this.tabPageFlight.Name = "tabPageFlight";
-            this.tabPageFlight.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFlight.Size = new System.Drawing.Size(1029, 1026);
-            this.tabPageFlight.TabIndex = 1;
-            this.tabPageFlight.Text = "Vuelo";
-            this.tabPageFlight.UseVisualStyleBackColor = true;
-            // 
-            // flightMapPanel
-            // 
-            this.flightMapPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flightMapPanel.Location = new System.Drawing.Point(6, 6);
-            this.flightMapPanel.Name = "flightMapPanel";
-            this.flightMapPanel.Size = new System.Drawing.Size(750, 700);
-            this.flightMapPanel.TabIndex = 0;
-            // 
-            // loadWaypointsBtn
-            // 
-            this.loadWaypointsBtn.Location = new System.Drawing.Point(770, 15);
-            this.loadWaypointsBtn.Name = "loadWaypointsBtn";
-            this.loadWaypointsBtn.Size = new System.Drawing.Size(240, 40);
-            this.loadWaypointsBtn.TabIndex = 1;
-            this.loadWaypointsBtn.Text = "Cargar Waypoints desde archivo";
-            this.loadWaypointsBtn.UseVisualStyleBackColor = true;
-            this.loadWaypointsBtn.Click += new System.EventHandler(this.loadWaypointsBtn_Click);
-            // 
-            // startFlightBtn
-            // 
-            this.startFlightBtn.Location = new System.Drawing.Point(770, 730);
-            this.startFlightBtn.Name = "startFlightBtn";
-            this.startFlightBtn.Size = new System.Drawing.Size(110, 40);
-            this.startFlightBtn.TabIndex = 2;
-            this.startFlightBtn.Text = "Iniciar Vuelo";
-            this.startFlightBtn.UseVisualStyleBackColor = true;
-            this.startFlightBtn.Click += new System.EventHandler(this.startFlightBtn_Click);
-            // 
-            // stopFlightBtn
-            // 
-            this.stopFlightBtn.Location = new System.Drawing.Point(900, 730);
-            this.stopFlightBtn.Name = "stopFlightBtn";
-            this.stopFlightBtn.Size = new System.Drawing.Size(110, 40);
-            this.stopFlightBtn.TabIndex = 3;
-            this.stopFlightBtn.Text = "Detener Vuelo";
-            this.stopFlightBtn.UseVisualStyleBackColor = true;
-            this.stopFlightBtn.Click += new System.EventHandler(this.stopFlightBtn_Click);
-            // 
-            // waypointsLabel
-            // 
-            this.waypointsLabel.AutoSize = true;
-            this.waypointsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.waypointsLabel.Location = new System.Drawing.Point(770, 65);
-            this.waypointsLabel.Name = "waypointsLabel";
-            this.waypointsLabel.Size = new System.Drawing.Size(98, 17);
-            this.waypointsLabel.TabIndex = 4;
-            this.waypointsLabel.Text = "Waypoints (0)";
-            // 
-            // waypointsListBox
-            // 
-            this.waypointsListBox.FormattingEnabled = true;
-            this.waypointsListBox.ItemHeight = 16;
-            this.waypointsListBox.Location = new System.Drawing.Point(770, 85);
-            this.waypointsListBox.Name = "waypointsListBox";
-            this.waypointsListBox.Size = new System.Drawing.Size(240, 620);
-            this.waypointsListBox.TabIndex = 5;
             // 
             // label4
             // 
@@ -792,7 +672,28 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1037, 1055);
-            this.Controls.Add(this.mainTabControl);
+            this.Controls.Add(this.detectionPanel);
+            this.Controls.Add(this.galleryBtn);
+            this.Controls.Add(this.captureBtn);
+            this.Controls.Add(this.stopVideoBtn);
+            this.Controls.Add(this.startVideoBtn);
+            this.Controls.Add(this.videoPictureBox);
+            this.Controls.Add(this.mapPanel);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.AltChangeLbl);
+            this.Controls.Add(this.Alt_changeTrackBar);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.AlturaLbl);
+            this.Controls.Add(this.AlturatrackBar);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.headingTrackBar);
+            this.Controls.Add(this.headingLbl);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.velocidadLbl);
+            this.Controls.Add(this.velocidadTrackBar);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
@@ -808,10 +709,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.AlturatrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Alt_changeTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.videoPictureBox)).EndInit();
-            this.tabPageControl.ResumeLayout(false);
-            this.tabPageFlight.ResumeLayout(false);
-            this.tabPageFlight.PerformLayout();
-            this.mainTabControl.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -868,15 +765,6 @@
         private System.Windows.Forms.Button captureBtn;
         private System.Windows.Forms.Button galleryBtn;
         private System.Windows.Forms.FlowLayoutPanel detectionPanel;
-        private System.Windows.Forms.TabControl mainTabControl;
-        private System.Windows.Forms.TabPage tabPageControl;
-        private System.Windows.Forms.TabPage tabPageFlight;
-        private System.Windows.Forms.Panel flightMapPanel;
-        private System.Windows.Forms.Button loadWaypointsBtn;
-        private System.Windows.Forms.Button startFlightBtn;
-        private System.Windows.Forms.Button stopFlightBtn;
-        private System.Windows.Forms.ListBox waypointsListBox;
-        private System.Windows.Forms.Label waypointsLabel;
     }
 }
 

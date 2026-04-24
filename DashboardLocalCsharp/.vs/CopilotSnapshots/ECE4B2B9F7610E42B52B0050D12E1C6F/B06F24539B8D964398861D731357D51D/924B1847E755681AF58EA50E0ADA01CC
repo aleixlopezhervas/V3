@@ -868,15 +868,6 @@
         private System.Windows.Forms.Button captureBtn;
         private System.Windows.Forms.Button galleryBtn;
         private System.Windows.Forms.FlowLayoutPanel detectionPanel;
-        private System.Windows.Forms.TabControl mainTabControl;
-        private System.Windows.Forms.TabPage tabPageControl;
-        private System.Windows.Forms.TabPage tabPageFlight;
-        private System.Windows.Forms.Panel flightMapPanel;
-        private System.Windows.Forms.Button loadWaypointsBtn;
-        private System.Windows.Forms.Button startFlightBtn;
-        private System.Windows.Forms.Button stopFlightBtn;
-        private System.Windows.Forms.ListBox waypointsListBox;
-        private System.Windows.Forms.Label waypointsLabel;
     }
 }
 

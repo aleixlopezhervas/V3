@@ -58,16 +58,6 @@ namespace Formulario
         // Variables para navegación automática al destino
         private System.Windows.Forms.Timer navigationTimer;
         private bool isNavigatingToDestination = false;
-
-        // Variables para vuelo de waypoints
-        private GMapControl flightGmap;
-        private GMapOverlay flightWaypointsOverlay;
-        private List<PointLatLng> waypoints = new List<PointLatLng>();
-        private int currentWaypointIndex = 0;
-        private bool isFlying = false;
-        private System.Windows.Forms.Timer waypointTimer;
-        private const double WAYPOINT_ARRIVAL_THRESHOLD = 0.000005; // ~0.5 metros
-        private const float FLIGHT_ALTITUDE = 5f;
         public Form1()
         {
             InitializeComponent();
@@ -95,7 +85,6 @@ namespace Formulario
             if (DesignMode) return;
 
             InicializarMapa();
-            InicializarMapaVuelo();
             InicializarBotonesDeteccion();
         }
 
@@ -721,163 +710,9 @@ namespace Formulario
             using (var gallery = new GalleryForm(capturedPhotoPaths, photosFolder))
                 gallery.ShowDialog();
         }
-
-        // =========================================================
-        // VUELO DE WAYPOINTS
-        // =========================================================
-
-        private void InicializarMapaVuelo()
-        {
-            flightGmap = new GMapControl();
-            flightGmap.Dock = DockStyle.Fill;
-            flightMapPanel.Controls.Add(flightGmap);
-
-            GMaps.Instance.Mode = AccessMode.ServerAndCache;
-            flightGmap.MapProvider = GMapProviders.GoogleSatelliteMap;
-            flightGmap.Position = new PointLatLng(41.27, 1.98);
-            flightGmap.MinZoom = 2;
-            flightGmap.MaxZoom = 25;
-            flightGmap.Zoom = 19;
-            flightGmap.ShowTileGridLines = false;
-            flightGmap.RetryLoadTile = 3;
-            flightGmap.ShowCenter = false;
-            flightGmap.IgnoreMarkerOnMouseWheel = true;
-
-            flightWaypointsOverlay = new GMapOverlay("waypoints");
-            flightGmap.Overlays.Add(flightWaypointsOverlay);
-        }
-
-        private void loadWaypointsBtn_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Archivos de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*";
-            openFileDialog.Title = "Cargar waypoints";
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    waypoints.Clear();
-                    waypointsListBox.Items.Clear();
-                    flightWaypointsOverlay.Markers.Clear();
-
-                    string[] lines = File.ReadAllLines(openFileDialog.FileName);
-                    foreach (string line in lines)
-                    {
-                        string trimmedLine = line.Trim();
-                        if (string.IsNullOrEmpty(trimmedLine))
-                            continue;
-
-                        string[] parts = trimmedLine.Split(new[] { ',', ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
-                        if (parts.Length >= 2 && double.TryParse(parts[0], out double lat) && double.TryParse(parts[1], out double lon))
-                        {
-                            waypoints.Add(new PointLatLng(lat, lon));
-                            waypointsListBox.Items.Add($"WP {waypoints.Count}: ({lat:F6}, {lon:F6})");
-
-                            // Agregar marcador al mapa
-                            var marker = new GMarkerGoogle(new PointLatLng(lat, lon), GMarkerGoogleType.blue);
-                            flightWaypointsOverlay.Markers.Add(marker);
-                        }
-                    }
-
-                    waypointsLabel.Text = $"Waypoints ({waypoints.Count})";
-                    flightGmap.Refresh();
-
-                    if (waypoints.Count > 0)
-                    {
-                        flightGmap.Position = waypoints[0];
-                        MessageBox.Show($"Se cargaron {waypoints.Count} waypoints correctamente.", "Éxito");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error al cargar el archivo: {ex.Message}", "Error");
-                }
-            }
-        }
-
-        private void startFlightBtn_Click(object sender, EventArgs e)
-        {
-            if (waypoints.Count == 0)
-            {
-                MessageBox.Show("Por favor carga waypoints primero.");
-                return;
-            }
-
-            isFlying = true;
-            currentWaypointIndex = 0;
-            startFlightBtn.Enabled = false;
-            loadWaypointsBtn.Enabled = false;
-
-            // Iniciar waypointTimer si no existe
-            if (waypointTimer == null)
-            {
-                waypointTimer = new System.Windows.Forms.Timer();
-                waypointTimer.Interval = 500; // Cada 500ms evaluar waypoint
-                waypointTimer.Tick += WaypointTimer_Tick;
-            }
-
-            waypointTimer.Start();
-
-            // Enviar al primer waypoint
-            if (currentWaypointIndex < waypoints.Count)
-            {
-                var wp = waypoints[currentWaypointIndex];
-                dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
-                Console.WriteLine($"Enviando al waypoint {currentWaypointIndex + 1}/{waypoints.Count}: ({wp.Lat}, {wp.Lng})");
-            }
-        }
-
-        private void stopFlightBtn_Click(object sender, EventArgs e)
-        {
-            isFlying = false;
-            if (waypointTimer != null)
-                waypointTimer.Stop();
-
-            dron.Navegar("Stop");
-            startFlightBtn.Enabled = true;
-            loadWaypointsBtn.Enabled = true;
-            currentWaypointIndex = 0;
-            Console.WriteLine("Vuelo detenido.");
-        }
-
-        private void WaypointTimer_Tick(object sender, EventArgs e)
-        {
-            if (!isFlying || currentWaypointIndex >= waypoints.Count)
-            {
-                isFlying = false;
-                waypointTimer.Stop();
-                startFlightBtn.Enabled = true;
-                loadWaypointsBtn.Enabled = true;
-                Console.WriteLine("Vuelo completado.");
-                MessageBox.Show("Vuelo completado - Todos los waypoints alcanzados.");
-                return;
-            }
-
-            // Comprobar si hemos llegado al waypoint actual
-            if (double.IsNaN(currentLatDeg) || double.IsNaN(currentLonDeg))
-                return;
-
-            var currentWaypoint = waypoints[currentWaypointIndex];
-            double dLat = Math.Abs(currentLatDeg - currentWaypoint.Lat);
-            double dLon = Math.Abs(currentLonDeg - currentWaypoint.Lng);
-
-            // Si está muy cerca del waypoint actual, ir al siguiente
-            if (dLat < WAYPOINT_ARRIVAL_THRESHOLD && dLon < WAYPOINT_ARRIVAL_THRESHOLD)
-            {
-                currentWaypointIndex++;
-                if (currentWaypointIndex < waypoints.Count)
-                {
-                    var nextWp = waypoints[currentWaypointIndex];
-                    dron.IrAlPunto((float)nextWp.Lat, (float)nextWp.Lng, FLIGHT_ALTITUDE);
-                    Console.WriteLine($"Waypoint {currentWaypointIndex} alcanzado. Enviando al waypoint {currentWaypointIndex + 1}/{waypoints.Count}: ({nextWp.Lat}, {nextWp.Lng})");
-                    waypointsListBox.SelectedIndex = currentWaypointIndex;
-                }
-            }
-        }
     }
 
+    
 
-
-
+    
 }

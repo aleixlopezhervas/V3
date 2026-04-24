@@ -792,7 +792,28 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1037, 1055);
-            this.Controls.Add(this.mainTabControl);
+            this.Controls.Add(this.detectionPanel);
+            this.Controls.Add(this.galleryBtn);
+            this.Controls.Add(this.captureBtn);
+            this.Controls.Add(this.stopVideoBtn);
+            this.Controls.Add(this.startVideoBtn);
+            this.Controls.Add(this.videoPictureBox);
+            this.Controls.Add(this.mapPanel);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.AltChangeLbl);
+            this.Controls.Add(this.Alt_changeTrackBar);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.AlturaLbl);
+            this.Controls.Add(this.AlturatrackBar);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.headingTrackBar);
+            this.Controls.Add(this.headingLbl);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.velocidadLbl);
+            this.Controls.Add(this.velocidadTrackBar);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
@@ -808,10 +829,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.AlturatrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Alt_changeTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.videoPictureBox)).EndInit();
-            this.tabPageControl.ResumeLayout(false);
-            this.tabPageFlight.ResumeLayout(false);
-            this.tabPageFlight.PerformLayout();
-            this.mainTabControl.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -868,15 +885,6 @@
         private System.Windows.Forms.Button captureBtn;
         private System.Windows.Forms.Button galleryBtn;
         private System.Windows.Forms.FlowLayoutPanel detectionPanel;
-        private System.Windows.Forms.TabControl mainTabControl;
-        private System.Windows.Forms.TabPage tabPageControl;
-        private System.Windows.Forms.TabPage tabPageFlight;
-        private System.Windows.Forms.Panel flightMapPanel;
-        private System.Windows.Forms.Button loadWaypointsBtn;
-        private System.Windows.Forms.Button startFlightBtn;
-        private System.Windows.Forms.Button stopFlightBtn;
-        private System.Windows.Forms.ListBox waypointsListBox;
-        private System.Windows.Forms.Label waypointsLabel;
     }
 }
 
