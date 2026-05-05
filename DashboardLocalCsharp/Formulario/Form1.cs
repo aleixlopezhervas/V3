@@ -1126,7 +1126,9 @@ namespace Formulario
                 {
                     // Codificar el parámetro correctamente
                     string encodedId = System.Uri.EscapeDataString(vueloId);
-                    string url = $"{API_BASE}/instruccion/vuelo?ID_Vuelo={encodedId}";
+
+                    // Endpoint correcto según código de Elies: /instruccion?ID_Vuelo={vueloId}
+                    string url = $"{API_BASE}/instruccion?ID_Vuelo={encodedId}";
 
                     Console.WriteLine($"URL solicitada: {url}");
                     Console.WriteLine($"VueloId original: {vueloId}");
@@ -1145,16 +1147,21 @@ namespace Formulario
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var parsed = Newtonsoft.Json.Linq.JToken.Parse(responseContent);
 
+                    Console.WriteLine($"\n=== RESPUESTA DE WAYPOINTS (RAW) ===");
+                    Console.WriteLine(responseContent);
+                    Console.WriteLine($"=== FIN RESPUESTA ===\n");
+
                     Newtonsoft.Json.Linq.JArray instrucciones = null;
 
                     // La API puede devolver:
-                    // 1. Un array directo: [{...}, {...}]
+                    // 1. Un array directo: [{...}, {...}] ← ESPERADO con endpoint correcto
                     // 2. Un objeto único: {...}
                     // 3. Un objeto con propiedad "data": {"data": [...]}
 
                     if (parsed is Newtonsoft.Json.Linq.JArray jArray)
                     {
                         // Caso 1: Array directo
+                        Console.WriteLine($"✅ Detectado: Array directo con {jArray.Count} elementos");
                         instrucciones = jArray;
                     }
                     else if (parsed is Newtonsoft.Json.Linq.JObject jObject)
@@ -1164,17 +1171,21 @@ namespace Formulario
                         if (dataField != null)
                         {
                             // Caso 3: Objeto con propiedad "data"
+                            Console.WriteLine($"Detectado: Objeto con propiedad 'data', {dataField.Count} elementos");
                             instrucciones = dataField;
                         }
                         else if (jObject["Punto"] != null)
                         {
                             // Caso 2: Es un objeto único de instrucción, envolver en array
-                            Console.WriteLine($"API devolvió un objeto único, envolviéndolo en array");
+                            Console.WriteLine($"⚠️  AVISO: Endpoint devuelve UN OBJETO, no array. Es posible que esté usando el endpoint equivocado.");
+                            Console.WriteLine($"Detalles: ID_Vuelo={jObject["ID_Vuelo"]}, trail={jObject["trail"]}");
                             instrucciones = new Newtonsoft.Json.Linq.JArray(jObject);
                         }
                         else
                         {
                             // No es lo que esperamos
+                            Console.WriteLine($"❌ ERROR: Formato no reconocido");
+                            Console.WriteLine($"Propiedades: {string.Join(", ", jObject.Properties().Select(p => p.Name))}");
                             instrucciones = null;
                         }
                     }
@@ -1185,6 +1196,8 @@ namespace Formulario
                         MessageBox.Show("Este vuelo no tiene instrucciones registradas.");
                         return;
                     }
+
+                    Console.WriteLine($"Total instrucciones a procesar: {instrucciones.Count}");
 
                     var ordenadas = instrucciones
                         .OrderBy(i => (int)(i["trail"] ?? 0))
