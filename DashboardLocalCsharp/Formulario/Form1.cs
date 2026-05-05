@@ -1199,7 +1199,48 @@ namespace Formulario
 
                     Console.WriteLine($"Total instrucciones a procesar: {instrucciones.Count}");
 
-                    var ordenadas = instrucciones
+                    // ⚠️ FILTRAR por ID_Vuelo correcto (la API devuelve todos los vuelos, así que filtramos en cliente)
+                    // DEBUG: Mostrar los IDs de vuelo en la respuesta para diagnóstico
+                    Console.WriteLine($"\n--- DEBUG: Examinando instrucciones recibidas ---");
+                    foreach (var ins in instrucciones)
+                    {
+                        var idVueloEnRespuesta = ins["ID_Vuelo"]?.ToString() ?? "NULL";
+                        Console.WriteLine($"  Instrucción trail={ins["trail"]} → ID_Vuelo='{idVueloEnRespuesta}'");
+                    }
+                    Console.WriteLine($"Buscando instrucciones donde ID_Vuelo == '{vueloId}'");
+                    Console.WriteLine($"--- FIN DEBUG ---\n");
+
+                    var instruccionesDelVuelo = instrucciones
+                        .Where(i => 
+                        {
+                            var idEnRespuesta = i["ID_Vuelo"]?.ToString();
+                            bool coincide = idEnRespuesta == vueloId;
+                            if (coincide)
+                                Console.WriteLine($"  ✓ Coincidencia encontrada: {idEnRespuesta}");
+                            return coincide;
+                        })
+                        .ToList();
+
+                    Console.WriteLine($"Instrucciones del vuelo {vueloId}: {instruccionesDelVuelo.Count}");
+
+                    if (instruccionesDelVuelo.Count == 0)
+                    {
+                        Console.WriteLine($"⚠️  AVISO: API devolvió instrucciones, pero NINGUNA pertenece al vuelo solicitado.");
+                        Console.WriteLine($"Se encontraron {instrucciones.Count} instrucciones en total, pero ninguna coincide con ID_Vuelo={vueloId}");
+
+                        // Mostrar qué vuelos SÍ tienen instrucciones
+                        var vuelosEnLaRespuesta = instrucciones
+                            .Select(i => i["ID_Vuelo"]?.ToString())
+                            .Distinct()
+                            .ToList();
+                        Console.WriteLine($"Vuelos encontrados en la respuesta: {string.Join(", ", vuelosEnLaRespuesta)}");
+                        Console.WriteLine($"❌ CONCLUSIÓN: El backend NO está filtrando por ID_Vuelo, solo tiene datos de: {string.Join(", ", vuelosEnLaRespuesta)}");
+
+                        MessageBox.Show("Este vuelo no tiene instrucciones registradas.");
+                        return;
+                    }
+
+                    var ordenadas = instruccionesDelVuelo
                         .OrderBy(i => (int)(i["trail"] ?? 0))
                         .ToList();
 
