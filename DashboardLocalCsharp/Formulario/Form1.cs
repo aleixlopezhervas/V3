@@ -59,6 +59,21 @@ namespace Formulario
         private System.Windows.Forms.Timer navigationTimer;
         private bool isNavigatingToDestination = false;
 
+        // Estructura para almacenar waypoint con altitud
+        private struct WaypointData
+        {
+            public PointLatLng Position { get; set; }
+            public float Altitud { get; set; }
+            public float Heading { get; set; }
+
+            public WaypointData(double lat, double lon, float altitud, float heading = 0)
+            {
+                Position = new PointLatLng(lat, lon);
+                Altitud = altitud;
+                Heading = heading;
+            }
+        }
+
         // Variables para vuelo de waypoints
         private GMapControl flightGmap;
         private GMapOverlay flightWaypointLinesOverlay;
@@ -67,7 +82,7 @@ namespace Formulario
         private GMapOverlay flightTraceOverlay;
         private GMapMarker flightDroneMarker;
         private List<PointLatLng> flightTrace = new List<PointLatLng>();
-        private List<PointLatLng> waypoints = new List<PointLatLng>();
+        private List<WaypointData> waypoints = new List<WaypointData>();
         private int currentWaypointIndex = 0;
         private bool isFlying = false;
         private bool isFlightPaused = false;
@@ -84,7 +99,7 @@ namespace Formulario
         private GMapOverlay bdDroneOverlay;
         private GMapOverlay bdTraceOverlay;
         private GMapMarker bdDroneMarker;
-        private List<PointLatLng> bdWaypoints = new List<PointLatLng>();
+        private List<WaypointData> bdWaypoints = new List<WaypointData>();
         private List<PointLatLng> bdTrace = new List<PointLatLng>();
         private int bdCurrentWaypointIndex = 0;
         private bool bdIsFlying = false;
@@ -841,14 +856,21 @@ namespace Formulario
                             continue;
 
                         string[] parts = trimmedLine.Split(new[] { ',', ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
+                        // Intentar parsear: lat, lon, [opcional: altitud]
                         if (parts.Length >= 2 && double.TryParse(parts[0], out double lat) && double.TryParse(parts[1], out double lon))
                         {
                             waypointCount++;
-                            waypoints.Add(new PointLatLng(lat, lon));
-                            waypointsListBox.Items.Add($"WP {waypointCount}: ({lat:F6}, {lon:F6})");
+                            // Si hay un tercer elemento, usarlo como altitud; si no, usar FLIGHT_ALTITUDE
+                            float altitud = FLIGHT_ALTITUDE;
+                            if (parts.Length >= 3 && float.TryParse(parts[2], out float alt))
+                                altitud = alt;
+
+                            var waypointData = new WaypointData(lat, lon, altitud);
+                            waypoints.Add(waypointData);
+                            waypointsListBox.Items.Add($"WP {waypointCount}: ({lat:F6}, {lon:F6}) Alt: {altitud}m");
 
                             // Agregar marcador personalizado con número
-                            var marker = new WaypointMarker(new PointLatLng(lat, lon), waypointCount);
+                            var marker = new WaypointMarker(waypointData.Position, waypointCount);
                             flightWaypointsOverlay.Markers.Add(marker);
                         }
                     }
@@ -857,7 +879,7 @@ namespace Formulario
                     for (int i = 0; i < waypoints.Count - 1; i++)
                     {
                         // Dibujar línea conectando waypoint actual con el siguiente
-                        var route = new GMapRoute(new List<PointLatLng> { waypoints[i], waypoints[i + 1] }, "route");
+                        var route = new GMapRoute(new List<PointLatLng> { waypoints[i].Position, waypoints[i + 1].Position }, "route");
                         route.Stroke = new Pen(Color.Blue, 1);
                         flightWaypointLinesOverlay.Routes.Add(route);
                     }
@@ -867,7 +889,7 @@ namespace Formulario
 
                     if (waypoints.Count > 0)
                     {
-                        flightGmap.Position = waypoints[0];
+                        flightGmap.Position = waypoints[0].Position;
                         MessageBox.Show($"Se cargaron {waypoints.Count} waypoints correctamente.", "Éxito");
                     }
                 }
@@ -915,7 +937,7 @@ namespace Formulario
                 {
                     try
                     {
-                        dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
+                        dron.IrAlPunto((float)wp.Position.Lat, (float)wp.Position.Lng, wp.Altitud);
                     }
                     catch (Exception ex)
                     {
@@ -983,8 +1005,8 @@ namespace Formulario
                 return;
 
             var currentWaypoint = waypoints[currentWaypointIndex];
-            double dLat = Math.Abs(currentLatDeg - currentWaypoint.Lat);
-            double dLon = Math.Abs(currentLonDeg - currentWaypoint.Lng);
+            double dLat = Math.Abs(currentLatDeg - currentWaypoint.Position.Lat);
+            double dLon = Math.Abs(currentLonDeg - currentWaypoint.Position.Lng);
 
             // Si está muy cerca del waypoint actual, ir al siguiente
             if (dLat < WAYPOINT_ARRIVAL_THRESHOLD && dLon < WAYPOINT_ARRIVAL_THRESHOLD)
@@ -1000,7 +1022,7 @@ namespace Formulario
                     {
                         try
                         {
-                            dron.IrAlPunto((float)nextWp.Lat, (float)nextWp.Lng, FLIGHT_ALTITUDE);
+                            dron.IrAlPunto((float)nextWp.Position.Lat, (float)nextWp.Position.Lng, nextWp.Altitud);
                         }
                         catch (Exception ex)
                         {
@@ -1132,21 +1154,27 @@ namespace Formulario
                     }
 
                     count++;
-                    var wp = new PointLatLng(instr.Punto.Lat, instr.Punto.Long);
-                    bdWaypoints.Add(wp);
-                    bdWaypointsListBox.Items.Add($"WP {count}: ({instr.Punto.Lat:F6}, {instr.Punto.Long:F6})");
+                    // Usar altitud del waypoint si existe, si no usar altitud por defecto
+                    float altitud = !double.IsNaN(instr.Punto.Altitud) ? (float)instr.Punto.Altitud : FLIGHT_ALTITUDE;
+                    var waypointData = new WaypointData(
+                        instr.Punto.Lat, 
+                        instr.Punto.Long, 
+                        altitud
+                    );
+                    bdWaypoints.Add(waypointData);
+                    bdWaypointsListBox.Items.Add($"WP {count}: ({instr.Punto.Lat:F6}, {instr.Punto.Long:F6}) Alt: {altitud}m");
 
-                    var marker = new WaypointMarker(wp, count);
+                    var marker = new WaypointMarker(waypointData.Position, count);
                     bdWaypointsOverlay.Markers.Add(marker);
 
-                    Console.WriteLine($"✓ Waypoint {count} (trail {instr.Trail}): Lat={instr.Punto.Lat}, Lon={instr.Punto.Long}");
+                    Console.WriteLine($"✓ Waypoint {count} (trail {instr.Trail}): Lat={instr.Punto.Lat}, Lon={instr.Punto.Long}, Alt={altitud}m");
                 }
 
                 // Líneas entre waypoints
                 for (int i = 0; i < bdWaypoints.Count - 1; i++)
                 {
                     var route = new GMapRoute(
-                        new List<PointLatLng> { bdWaypoints[i], bdWaypoints[i + 1] }, "route");
+                        new List<PointLatLng> { bdWaypoints[i].Position, bdWaypoints[i + 1].Position }, "route");
                     route.Stroke = new Pen(Color.Blue, 1);
                     bdWaypointLinesOverlay.Routes.Add(route);
                 }
@@ -1156,7 +1184,7 @@ namespace Formulario
 
                 if (bdWaypoints.Count > 0)
                 {
-                    bdGmap.Position = bdWaypoints[0];
+                    bdGmap.Position = bdWaypoints[0].Position;
                     MessageBox.Show($"Cargados {bdWaypoints.Count} waypoints.", "Éxito");
                 }
                 else
@@ -1205,7 +1233,7 @@ namespace Formulario
             {
                 try
                 {
-                    dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
+                    dron.IrAlPunto((float)wp.Position.Lat, (float)wp.Position.Lng, wp.Altitud);
                 }
                 catch (Exception ex)
                 {
@@ -1255,7 +1283,7 @@ namespace Formulario
                     {
                         try
                         {
-                            dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
+                            dron.IrAlPunto((float)wp.Position.Lat, (float)wp.Position.Lng, wp.Altitud);
                             Console.WriteLine($"Reanudado: Dirigiéndose a waypoint {bdCurrentWaypointIndex + 1}");
                         }
                         catch (Exception ex)
@@ -1297,7 +1325,7 @@ namespace Formulario
                     {
                         try
                         {
-                            dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
+                            dron.IrAlPunto((float)wp.Position.Lat, (float)wp.Position.Lng, wp.Altitud);
                             Console.WriteLine($"Reanudado: Dirigiéndose a waypoint {currentWaypointIndex + 1}");
                         }
                         catch (Exception ex)
@@ -1361,8 +1389,8 @@ namespace Formulario
 
             // Comprobar si llegó al waypoint actual
             var currentWp = bdWaypoints[bdCurrentWaypointIndex];
-            double dLat = Math.Abs(currentLatDeg - currentWp.Lat);
-            double dLon = Math.Abs(currentLonDeg - currentWp.Lng);
+            double dLat = Math.Abs(currentLatDeg - currentWp.Position.Lat);
+            double dLon = Math.Abs(currentLonDeg - currentWp.Position.Lng);
 
             if (dLat < WAYPOINT_ARRIVAL_THRESHOLD && dLon < WAYPOINT_ARRIVAL_THRESHOLD)
             {
@@ -1377,7 +1405,7 @@ namespace Formulario
                     {
                         try
                         {
-                            dron.IrAlPunto((float)nextWp.Lat, (float)nextWp.Lng, FLIGHT_ALTITUDE);
+                            dron.IrAlPunto((float)nextWp.Position.Lat, (float)nextWp.Position.Lng, nextWp.Altitud);
                         }
                         catch (Exception ex)
                         {
