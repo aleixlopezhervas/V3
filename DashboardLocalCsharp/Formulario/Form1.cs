@@ -901,12 +901,21 @@ namespace Formulario
 
             waypointTimer.Start();
 
-            // Enviar al primer waypoint
+            // ✅ Ejecutar primer waypoint en ThreadPool para no bloquear UI
             if (currentWaypointIndex < waypoints.Count)
             {
                 var wp = waypoints[currentWaypointIndex];
-                dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
-                Console.WriteLine($"Enviando al waypoint {currentWaypointIndex + 1}/{waypoints.Count}: ({wp.Lat}, {wp.Lng})");
+                ThreadPool.QueueUserWorkItem(_ =>
+                {
+                    try
+                    {
+                        dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error al navegar al primer waypoint: {ex.Message}");
+                    }
+                });
             }
         }
 
@@ -966,9 +975,27 @@ namespace Formulario
                 if (currentWaypointIndex < waypoints.Count)
                 {
                     var nextWp = waypoints[currentWaypointIndex];
-                    dron.IrAlPunto((float)nextWp.Lat, (float)nextWp.Lng, FLIGHT_ALTITUDE);
-                    Console.WriteLine($"Waypoint {currentWaypointIndex} alcanzado. Enviando al waypoint {currentWaypointIndex + 1}/{waypoints.Count}: ({nextWp.Lat}, {nextWp.Lng})");
-                    waypointsListBox.SelectedIndex = currentWaypointIndex;
+                    var currentIndex = currentWaypointIndex;
+
+                    // ✅ Ejecutar en ThreadPool para no bloquear la UI
+                    ThreadPool.QueueUserWorkItem(_ =>
+                    {
+                        try
+                        {
+                            dron.IrAlPunto((float)nextWp.Lat, (float)nextWp.Lng, FLIGHT_ALTITUDE);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error al navegar a waypoint: {ex.Message}");
+                        }
+                    });
+
+                    // Actualizar índice en el ListBox desde UI
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        if (waypointsListBox.Items.Count > currentIndex)
+                            waypointsListBox.SelectedIndex = currentIndex;
+                    });
                 }
             }
         }
@@ -1352,8 +1379,19 @@ namespace Formulario
             }
             bdWaypointTimer.Start();
 
+            // ✅ Ejecutar primer waypoint en ThreadPool para no bloquear UI
             var wp = bdWaypoints[bdCurrentWaypointIndex];
-            dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                try
+                {
+                    dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error al navegar al primer waypoint: {ex.Message}");
+                }
+            });
         }
 
         private void stopBDFlightBtn_Click(object sender, EventArgs e)
@@ -1416,8 +1454,27 @@ namespace Formulario
                 if (bdCurrentWaypointIndex < bdWaypoints.Count)
                 {
                     var nextWp = bdWaypoints[bdCurrentWaypointIndex];
-                    dron.IrAlPunto((float)nextWp.Lat, (float)nextWp.Lng, FLIGHT_ALTITUDE);
-                    bdWaypointsListBox.SelectedIndex = bdCurrentWaypointIndex;
+                    var currentIndex = bdCurrentWaypointIndex;
+
+                    // ✅ Ejecutar en ThreadPool para no bloquear la UI
+                    ThreadPool.QueueUserWorkItem(_ =>
+                    {
+                        try
+                        {
+                            dron.IrAlPunto((float)nextWp.Lat, (float)nextWp.Lng, FLIGHT_ALTITUDE);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error al navegar a waypoint: {ex.Message}");
+                        }
+                    });
+
+                    // Actualizar índice en el ListBox desde UI
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        if (bdWaypointsListBox.Items.Count > currentIndex)
+                            bdWaypointsListBox.SelectedIndex = currentIndex;
+                    });
                 }
             }
 
