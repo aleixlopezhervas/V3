@@ -24,6 +24,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{F0FFC789-12F4-4D89-A2CA-AD759032DBBB}|Formulario\\Formulario.csproj|C:\\Users\\aleix\\OneDrive\\Desktop\\V3\\DashboardLocalCsharp\\formulario\\mapmarkers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F0FFC789-12F4-4D89-A2CA-AD759032DBBB}|Formulario\\Formulario.csproj|solutionrelative:formulario\\mapmarkers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F0FFC789-12F4-4D89-A2CA-AD759032DBBB}|Formulario\\Formulario.csproj|c:\\users\\aleix\\onedrive\\desktop\\v3\\dashboardlocalcsharp\\formulario\\droneapiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F0FFC789-12F4-4D89-A2CA-AD759032DBBB}|Formulario\\Formulario.csproj|solutionrelative:formulario\\droneapiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -33,8 +37,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DroneAPIService.cs",
+              "DocumentMoniker": "C:\\Users\\aleix\\OneDrive\\Desktop\\V3\\DashboardLocalCsharp\\Formulario\\DroneAPIService.cs",
+              "RelativeDocumentMoniker": "Formulario\\DroneAPIService.cs",
+              "ToolTip": "C:\\Users\\aleix\\OneDrive\\Desktop\\V3\\DashboardLocalCsharp\\Formulario\\DroneAPIService.cs",
+              "RelativeToolTip": "Formulario\\DroneAPIService.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-06T11:02:42.48Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 5,
@@ -79,7 +96,7 @@
               "RelativeDocumentMoniker": "Formulario\\Form1.Designer.cs",
               "ToolTip": "C:\\Users\\aleix\\OneDrive\\Desktop\\V3\\DashboardLocalCsharp\\Formulario\\Form1.Designer.cs",
               "RelativeToolTip": "Formulario\\Form1.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAP8DAAAAAAAAAABBwBYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-21T21:13:02.681Z",
               "EditorCaption": ""
