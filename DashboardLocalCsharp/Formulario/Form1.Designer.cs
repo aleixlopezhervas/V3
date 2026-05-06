@@ -30,15 +30,19 @@
         {
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabPageControl = new System.Windows.Forms.TabPage();
-            this.tabPageFlight = new System.Windows.Forms.TabPage();
-            this.tabPageLoadBD = new System.Windows.Forms.TabPage();
-
-            this.label4 = new System.Windows.Forms.Label();
-            this.headingTrackBar = new System.Windows.Forms.TrackBar();
-            this.headingLbl = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.velocidadLbl = new System.Windows.Forms.Label();
-            this.velocidadTrackBar = new System.Windows.Forms.TrackBar();
+            this.detectionPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.galleryBtn = new System.Windows.Forms.Button();
+            this.captureBtn = new System.Windows.Forms.Button();
+            this.stopVideoBtn = new System.Windows.Forms.Button();
+            this.startVideoBtn = new System.Windows.Forms.Button();
+            this.videoPictureBox = new System.Windows.Forms.PictureBox();
+            this.mapPanel = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.AltChangeLbl = new System.Windows.Forms.Label();
+            this.Alt_changeTrackBar = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.AlturaLbl = new System.Windows.Forms.Label();
+            this.AlturatrackBar = new System.Windows.Forms.TrackBar();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.BatteryLbl = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -52,6 +56,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.button22 = new System.Windows.Forms.Button();
             this.button23 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.headingTrackBar = new System.Windows.Forms.TrackBar();
+            this.headingLbl = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.velocidadLbl = new System.Windows.Forms.Label();
+            this.velocidadTrackBar = new System.Windows.Forms.TrackBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button17 = new System.Windows.Forms.Button();
@@ -68,51 +78,40 @@
             this.button7 = new System.Windows.Forms.Button();
             this.despegarBtn = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.label1 = new System.Windows.Forms.Label();
-            this.AlturaLbl = new System.Windows.Forms.Label();
-            this.AlturatrackBar = new System.Windows.Forms.TrackBar();
-            this.Alt_changeTrackBar = new System.Windows.Forms.TrackBar();
-            this.label8 = new System.Windows.Forms.Label();
-            this.AltChangeLbl = new System.Windows.Forms.Label();
-            this.mapPanel = new System.Windows.Forms.Panel();
-            this.videoPictureBox = new System.Windows.Forms.PictureBox();
-            this.startVideoBtn = new System.Windows.Forms.Button();
-            this.stopVideoBtn = new System.Windows.Forms.Button();
-            this.captureBtn = new System.Windows.Forms.Button();
-            this.galleryBtn = new System.Windows.Forms.Button();
-            this.detectionPanel = new System.Windows.Forms.FlowLayoutPanel();
-
-            this.flightMapPanel = new System.Windows.Forms.Panel();
-            this.loadWaypointsBtn = new System.Windows.Forms.Button();
-            this.startFlightBtn = new System.Windows.Forms.Button();
-            this.stopFlightBtn = new System.Windows.Forms.Button();
-            this.waypointsListBox = new System.Windows.Forms.ListBox();
+            this.tabPageFlight = new System.Windows.Forms.TabPage();
             this.waypointsLabel = new System.Windows.Forms.Label();
-
-            // BD Flight Tab Controls
+            this.waypointsListBox = new System.Windows.Forms.ListBox();
+            this.pauseResumeBtn = new System.Windows.Forms.Button();
+            this.stopFlightBtn = new System.Windows.Forms.Button();
+            this.startFlightBtn = new System.Windows.Forms.Button();
+            this.loadWaypointsBtn = new System.Windows.Forms.Button();
+            this.flightMapPanel = new System.Windows.Forms.Panel();
+            this.tabPageLoadBD = new System.Windows.Forms.TabPage();
             this.bdMapPanel = new System.Windows.Forms.Panel();
             this.vuelosLabel = new System.Windows.Forms.Label();
-            this.vuelosComboBox = new System.Windows.Forms.ComboBox();
+            this.vuelosListBox = new System.Windows.Forms.ListBox();
+            this.vuelosPageLabel = new System.Windows.Forms.Label();
+            this.vuelosPreviousBtn = new System.Windows.Forms.Button();
+            this.vuelosNextBtn = new System.Windows.Forms.Button();
             this.loadFromDBBtn = new System.Windows.Forms.Button();
             this.bdWaypointsLabel = new System.Windows.Forms.Label();
             this.bdWaypointsListBox = new System.Windows.Forms.ListBox();
+            this.pauseResumeBDBtn = new System.Windows.Forms.Button();
             this.startBDFlightBtn = new System.Windows.Forms.Button();
             this.stopBDFlightBtn = new System.Windows.Forms.Button();
-            this.pauseResumeBDBtn = new System.Windows.Forms.Button();
-            this.pauseResumeBtn = new System.Windows.Forms.Button();
-
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.mainTabControl.SuspendLayout();
+            this.tabPageControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.videoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Alt_changeTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlturatrackBar)).BeginInit();
+            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.headingTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.velocidadTrackBar)).BeginInit();
-            this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AlturatrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Alt_changeTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.videoPictureBox)).BeginInit();
-            this.tabPageControl.SuspendLayout();
             this.tabPageFlight.SuspendLayout();
-            this.mainTabControl.SuspendLayout();
+            this.tabPageLoadBD.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -121,10 +120,10 @@
             this.mainTabControl.Controls.Add(this.tabPageFlight);
             this.mainTabControl.Controls.Add(this.tabPageLoadBD);
             this.mainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainTabControl.Location = new System.Drawing.Point(0, 0);
+            this.mainTabControl.Location = new System.Drawing.Point(0, 24);
             this.mainTabControl.Name = "mainTabControl";
             this.mainTabControl.SelectedIndex = 0;
-            this.mainTabControl.Size = new System.Drawing.Size(1037, 1055);
+            this.mainTabControl.Size = new System.Drawing.Size(1037, 567);
             this.mainTabControl.TabIndex = 54;
             // 
             // tabPageControl
@@ -155,164 +154,149 @@
             this.tabPageControl.Location = new System.Drawing.Point(4, 25);
             this.tabPageControl.Name = "tabPageControl";
             this.tabPageControl.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageControl.Size = new System.Drawing.Size(1029, 1026);
+            this.tabPageControl.Size = new System.Drawing.Size(1029, 1002);
             this.tabPageControl.TabIndex = 0;
             this.tabPageControl.Text = "Control";
             this.tabPageControl.UseVisualStyleBackColor = true;
             // 
-            // tabPageFlight
+            // detectionPanel
             // 
-            this.tabPageFlight.Controls.Add(this.waypointsLabel);
-            this.tabPageFlight.Controls.Add(this.waypointsListBox);
-            this.tabPageFlight.Controls.Add(this.pauseResumeBtn);
-            this.tabPageFlight.Controls.Add(this.stopFlightBtn);
-            this.tabPageFlight.Controls.Add(this.startFlightBtn);
-            this.tabPageFlight.Controls.Add(this.loadWaypointsBtn);
-            this.tabPageFlight.Controls.Add(this.flightMapPanel);
-            this.tabPageFlight.Location = new System.Drawing.Point(4, 25);
-            this.tabPageFlight.Name = "tabPageFlight";
-            this.tabPageFlight.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFlight.Size = new System.Drawing.Size(1029, 1026);
-            this.tabPageFlight.TabIndex = 1;
-            this.tabPageFlight.Text = "Vuelo";
-            this.tabPageFlight.UseVisualStyleBackColor = true;
+            this.detectionPanel.AutoScroll = true;
+            this.detectionPanel.Location = new System.Drawing.Point(429, 892);
+            this.detectionPanel.Name = "detectionPanel";
+            this.detectionPanel.Size = new System.Drawing.Size(575, 119);
+            this.detectionPanel.TabIndex = 53;
             // 
-            // flightMapPanel
+            // galleryBtn
             // 
-            this.flightMapPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flightMapPanel.Location = new System.Drawing.Point(6, 6);
-            this.flightMapPanel.Name = "flightMapPanel";
-            this.flightMapPanel.Size = new System.Drawing.Size(750, 700);
-            this.flightMapPanel.TabIndex = 0;
+            this.galleryBtn.Location = new System.Drawing.Point(874, 813);
+            this.galleryBtn.Name = "galleryBtn";
+            this.galleryBtn.Size = new System.Drawing.Size(130, 40);
+            this.galleryBtn.TabIndex = 52;
+            this.galleryBtn.Text = "Abrir Galeria";
+            this.galleryBtn.UseVisualStyleBackColor = true;
+            this.galleryBtn.Click += new System.EventHandler(this.galleryBtn_Click);
             // 
-            // loadWaypointsBtn
+            // captureBtn
             // 
-            this.loadWaypointsBtn.Location = new System.Drawing.Point(770, 15);
-            this.loadWaypointsBtn.Name = "loadWaypointsBtn";
-            this.loadWaypointsBtn.Size = new System.Drawing.Size(240, 40);
-            this.loadWaypointsBtn.TabIndex = 1;
-            this.loadWaypointsBtn.Text = "Cargar Waypoints desde archivo";
-            this.loadWaypointsBtn.UseVisualStyleBackColor = true;
-            this.loadWaypointsBtn.Click += new System.EventHandler(this.loadWaypointsBtn_Click);
+            this.captureBtn.Location = new System.Drawing.Point(724, 813);
+            this.captureBtn.Name = "captureBtn";
+            this.captureBtn.Size = new System.Drawing.Size(130, 40);
+            this.captureBtn.TabIndex = 51;
+            this.captureBtn.Text = "Capturar Imagen";
+            this.captureBtn.UseVisualStyleBackColor = true;
+            this.captureBtn.Click += new System.EventHandler(this.captureBtn_Click);
             // 
-            // startFlightBtn
+            // stopVideoBtn
             // 
-            this.startFlightBtn.Location = new System.Drawing.Point(770, 730);
-            this.startFlightBtn.Name = "startFlightBtn";
-            this.startFlightBtn.Size = new System.Drawing.Size(110, 40);
-            this.startFlightBtn.TabIndex = 2;
-            this.startFlightBtn.Text = "Iniciar Vuelo";
-            this.startFlightBtn.UseVisualStyleBackColor = true;
-            this.startFlightBtn.Click += new System.EventHandler(this.startFlightBtn_Click);
+            this.stopVideoBtn.Location = new System.Drawing.Point(575, 813);
+            this.stopVideoBtn.Name = "stopVideoBtn";
+            this.stopVideoBtn.Size = new System.Drawing.Size(130, 40);
+            this.stopVideoBtn.TabIndex = 50;
+            this.stopVideoBtn.Text = "Stop Video";
+            this.stopVideoBtn.UseVisualStyleBackColor = true;
+            this.stopVideoBtn.Click += new System.EventHandler(this.stopVideoBtn_Click);
             // 
-            // stopFlightBtn
+            // startVideoBtn
             // 
-            this.stopFlightBtn.Location = new System.Drawing.Point(900, 730);
-            this.stopFlightBtn.Name = "stopFlightBtn";
-            this.stopFlightBtn.Size = new System.Drawing.Size(110, 40);
-            this.stopFlightBtn.TabIndex = 3;
-            this.stopFlightBtn.Text = "Detener Vuelo";
-            this.stopFlightBtn.UseVisualStyleBackColor = true;
-            this.stopFlightBtn.Click += new System.EventHandler(this.stopFlightBtn_Click);
+            this.startVideoBtn.Location = new System.Drawing.Point(429, 813);
+            this.startVideoBtn.Name = "startVideoBtn";
+            this.startVideoBtn.Size = new System.Drawing.Size(130, 40);
+            this.startVideoBtn.TabIndex = 49;
+            this.startVideoBtn.Text = "Start Video";
+            this.startVideoBtn.UseVisualStyleBackColor = true;
+            this.startVideoBtn.Click += new System.EventHandler(this.startVideoBtn_Click);
             // 
-            // pauseResumeBtn
+            // videoPictureBox
             // 
-            this.pauseResumeBtn.Enabled = false;
-            this.pauseResumeBtn.Location = new System.Drawing.Point(835, 730);
-            this.pauseResumeBtn.Name = "pauseResumeBtn";
-            this.pauseResumeBtn.Size = new System.Drawing.Size(110, 40);
-            this.pauseResumeBtn.TabIndex = 4;
-            this.pauseResumeBtn.Text = "Pausar Vuelo";
-            this.pauseResumeBtn.UseVisualStyleBackColor = true;
-            this.pauseResumeBtn.Click += new System.EventHandler(this.pauseResumeBtn_Click);
+            this.videoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.videoPictureBox.Location = new System.Drawing.Point(429, 481);
+            this.videoPictureBox.Name = "videoPictureBox";
+            this.videoPictureBox.Size = new System.Drawing.Size(575, 320);
+            this.videoPictureBox.TabIndex = 47;
+            this.videoPictureBox.TabStop = false;
             // 
-            // waypointsLabel
+            // mapPanel
             // 
-            this.waypointsLabel.AutoSize = true;
-            this.waypointsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.waypointsLabel.Location = new System.Drawing.Point(770, 65);
-            this.waypointsLabel.Name = "waypointsLabel";
-            this.waypointsLabel.Size = new System.Drawing.Size(98, 17);
-            this.waypointsLabel.TabIndex = 4;
-            this.waypointsLabel.Text = "Waypoints (0)";
+            this.mapPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mapPanel.Location = new System.Drawing.Point(429, 50);
+            this.mapPanel.Name = "mapPanel";
+            this.mapPanel.Size = new System.Drawing.Size(575, 413);
+            this.mapPanel.TabIndex = 46;
             // 
-            // waypointsListBox
+            // label8
             // 
-            this.waypointsListBox.FormattingEnabled = true;
-            this.waypointsListBox.ItemHeight = 16;
-            this.waypointsListBox.Location = new System.Drawing.Point(770, 85);
-            this.waypointsListBox.Name = "waypointsListBox";
-            this.waypointsListBox.Size = new System.Drawing.Size(240, 620);
-            this.waypointsListBox.TabIndex = 5;
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(291, 223);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 20);
+            this.label8.TabIndex = 45;
+            this.label8.Text = "Altura";
             // 
-            // label4
+            // AltChangeLbl
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(100, 421);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 20);
-            this.label4.TabIndex = 39;
-            this.label4.Text = "Heading";
+            this.AltChangeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AltChangeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AltChangeLbl.ForeColor = System.Drawing.Color.Red;
+            this.AltChangeLbl.Location = new System.Drawing.Point(295, 249);
+            this.AltChangeLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.AltChangeLbl.Name = "AltChangeLbl";
+            this.AltChangeLbl.Size = new System.Drawing.Size(64, 24);
+            this.AltChangeLbl.TabIndex = 44;
+            this.AltChangeLbl.Text = "0";
+            this.AltChangeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.AltChangeLbl.Click += new System.EventHandler(this.AltChangeLbl_Click);
             // 
-            // headingTrackBar
+            // Alt_changeTrackBar
             // 
-            this.headingTrackBar.Location = new System.Drawing.Point(38, 466);
-            this.headingTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.headingTrackBar.Maximum = 360;
-            this.headingTrackBar.Name = "headingTrackBar";
-            this.headingTrackBar.Size = new System.Drawing.Size(242, 56);
-            this.headingTrackBar.TabIndex = 34;
-            this.headingTrackBar.Scroll += new System.EventHandler(this.headingTrackBar_Scroll);
-            this.headingTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.headingTrackBar_MouseUp);
+            this.Alt_changeTrackBar.Location = new System.Drawing.Point(305, 275);
+            this.Alt_changeTrackBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Alt_changeTrackBar.Maximum = 100;
+            this.Alt_changeTrackBar.Name = "Alt_changeTrackBar";
+            this.Alt_changeTrackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.Alt_changeTrackBar.Size = new System.Drawing.Size(56, 232);
+            this.Alt_changeTrackBar.TabIndex = 43;
+            this.Alt_changeTrackBar.TickFrequency = 5;
+            this.Alt_changeTrackBar.Scroll += new System.EventHandler(this.Alt_changeTrackBar_Scroll);
+            this.Alt_changeTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Alt_changeTrackBar_MouseUp);
             // 
-            // headingLbl
+            // label1
             // 
-            this.headingLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.headingLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.headingLbl.ForeColor = System.Drawing.Color.Red;
-            this.headingLbl.Location = new System.Drawing.Point(25, 422);
-            this.headingLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.headingLbl.Name = "headingLbl";
-            this.headingLbl.Size = new System.Drawing.Size(64, 24);
-            this.headingLbl.TabIndex = 35;
-            this.headingLbl.Text = "0";
-            this.headingLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(100, 242);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(134, 20);
+            this.label1.TabIndex = 42;
+            this.label1.Text = "Altura Despegue";
             // 
-            // label9
+            // AlturaLbl
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(101, 344);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 20);
-            this.label9.TabIndex = 38;
-            this.label9.Text = "Velocidad";
+            this.AlturaLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AlturaLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AlturaLbl.ForeColor = System.Drawing.Color.Red;
+            this.AlturaLbl.Location = new System.Drawing.Point(23, 236);
+            this.AlturaLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.AlturaLbl.Name = "AlturaLbl";
+            this.AlturaLbl.Size = new System.Drawing.Size(64, 29);
+            this.AlturaLbl.TabIndex = 41;
+            this.AlturaLbl.Text = "0";
+            this.AlturaLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.AlturaLbl.Click += new System.EventHandler(this.AlturaLbl_Click);
             // 
-            // velocidadLbl
+            // AlturatrackBar
             // 
-            this.velocidadLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.velocidadLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.velocidadLbl.ForeColor = System.Drawing.Color.Red;
-            this.velocidadLbl.Location = new System.Drawing.Point(23, 338);
-            this.velocidadLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.velocidadLbl.Name = "velocidadLbl";
-            this.velocidadLbl.Size = new System.Drawing.Size(64, 29);
-            this.velocidadLbl.TabIndex = 37;
-            this.velocidadLbl.Text = "0";
-            this.velocidadLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // velocidadTrackBar
-            // 
-            this.velocidadTrackBar.Location = new System.Drawing.Point(39, 377);
-            this.velocidadTrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.velocidadTrackBar.Name = "velocidadTrackBar";
-            this.velocidadTrackBar.Size = new System.Drawing.Size(242, 56);
-            this.velocidadTrackBar.TabIndex = 36;
-            this.velocidadTrackBar.Scroll += new System.EventHandler(this.velocidadTrackBar_Scroll);
-            this.velocidadTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.velocidadTrackBar_MouseUp);
+            this.AlturatrackBar.Location = new System.Drawing.Point(38, 275);
+            this.AlturatrackBar.Margin = new System.Windows.Forms.Padding(4);
+            this.AlturatrackBar.Maximum = 100;
+            this.AlturatrackBar.Name = "AlturatrackBar";
+            this.AlturatrackBar.Size = new System.Drawing.Size(242, 56);
+            this.AlturatrackBar.TabIndex = 40;
+            this.AlturatrackBar.TickFrequency = 5;
+            this.AlturatrackBar.Scroll += new System.EventHandler(this.AlturatrackBar_Scroll);
             // 
             // groupBox4
             // 
@@ -454,6 +438,75 @@
             this.button23.Text = "Iniciar";
             this.button23.UseVisualStyleBackColor = true;
             this.button23.Click += new System.EventHandler(this.enviarTelemetriaBtn_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(100, 421);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 20);
+            this.label4.TabIndex = 39;
+            this.label4.Text = "Heading";
+            // 
+            // headingTrackBar
+            // 
+            this.headingTrackBar.Location = new System.Drawing.Point(38, 466);
+            this.headingTrackBar.Margin = new System.Windows.Forms.Padding(4);
+            this.headingTrackBar.Maximum = 360;
+            this.headingTrackBar.Name = "headingTrackBar";
+            this.headingTrackBar.Size = new System.Drawing.Size(242, 56);
+            this.headingTrackBar.TabIndex = 34;
+            this.headingTrackBar.Scroll += new System.EventHandler(this.headingTrackBar_Scroll);
+            this.headingTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.headingTrackBar_MouseUp);
+            // 
+            // headingLbl
+            // 
+            this.headingLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.headingLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.headingLbl.ForeColor = System.Drawing.Color.Red;
+            this.headingLbl.Location = new System.Drawing.Point(25, 422);
+            this.headingLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.headingLbl.Name = "headingLbl";
+            this.headingLbl.Size = new System.Drawing.Size(64, 24);
+            this.headingLbl.TabIndex = 35;
+            this.headingLbl.Text = "0";
+            this.headingLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(101, 344);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(82, 20);
+            this.label9.TabIndex = 38;
+            this.label9.Text = "Velocidad";
+            // 
+            // velocidadLbl
+            // 
+            this.velocidadLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.velocidadLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.velocidadLbl.ForeColor = System.Drawing.Color.Red;
+            this.velocidadLbl.Location = new System.Drawing.Point(23, 338);
+            this.velocidadLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.velocidadLbl.Name = "velocidadLbl";
+            this.velocidadLbl.Size = new System.Drawing.Size(64, 29);
+            this.velocidadLbl.TabIndex = 37;
+            this.velocidadLbl.Text = "0";
+            this.velocidadLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // velocidadTrackBar
+            // 
+            this.velocidadTrackBar.Location = new System.Drawing.Point(39, 377);
+            this.velocidadTrackBar.Margin = new System.Windows.Forms.Padding(4);
+            this.velocidadTrackBar.Name = "velocidadTrackBar";
+            this.velocidadTrackBar.Size = new System.Drawing.Size(242, 56);
+            this.velocidadTrackBar.TabIndex = 36;
+            this.velocidadTrackBar.Scroll += new System.EventHandler(this.velocidadTrackBar_Scroll);
+            this.velocidadTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.velocidadTrackBar_MouseUp);
             // 
             // groupBox2
             // 
@@ -665,113 +718,100 @@
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.RTLBtn_Click);
             // 
-            // menuStrip1
+            // tabPageFlight
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1037, 30);
-            this.menuStrip1.TabIndex = 33;
-            this.menuStrip1.Text = "menuStrip1";
+            this.tabPageFlight.Controls.Add(this.waypointsLabel);
+            this.tabPageFlight.Controls.Add(this.waypointsListBox);
+            this.tabPageFlight.Controls.Add(this.pauseResumeBtn);
+            this.tabPageFlight.Controls.Add(this.stopFlightBtn);
+            this.tabPageFlight.Controls.Add(this.startFlightBtn);
+            this.tabPageFlight.Controls.Add(this.loadWaypointsBtn);
+            this.tabPageFlight.Controls.Add(this.flightMapPanel);
+            this.tabPageFlight.Location = new System.Drawing.Point(4, 25);
+            this.tabPageFlight.Name = "tabPageFlight";
+            this.tabPageFlight.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageFlight.Size = new System.Drawing.Size(1029, 1026);
+            this.tabPageFlight.TabIndex = 1;
+            this.tabPageFlight.Text = "Vuelo";
+            this.tabPageFlight.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // waypointsLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(100, 242);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(134, 20);
-            this.label1.TabIndex = 42;
-            this.label1.Text = "Altura Despegue";
+            this.waypointsLabel.AutoSize = true;
+            this.waypointsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.waypointsLabel.Location = new System.Drawing.Point(770, 65);
+            this.waypointsLabel.Name = "waypointsLabel";
+            this.waypointsLabel.Size = new System.Drawing.Size(126, 20);
+            this.waypointsLabel.TabIndex = 4;
+            this.waypointsLabel.Text = "Waypoints (0)";
             // 
-            // AlturaLbl
+            // waypointsListBox
             // 
-            this.AlturaLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.AlturaLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AlturaLbl.ForeColor = System.Drawing.Color.Red;
-            this.AlturaLbl.Location = new System.Drawing.Point(23, 236);
-            this.AlturaLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.AlturaLbl.Name = "AlturaLbl";
-            this.AlturaLbl.Size = new System.Drawing.Size(64, 29);
-            this.AlturaLbl.TabIndex = 41;
-            this.AlturaLbl.Text = "0";
-            this.AlturaLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.AlturaLbl.Click += new System.EventHandler(this.AlturaLbl_Click);
+            this.waypointsListBox.FormattingEnabled = true;
+            this.waypointsListBox.ItemHeight = 16;
+            this.waypointsListBox.Location = new System.Drawing.Point(770, 85);
+            this.waypointsListBox.Name = "waypointsListBox";
+            this.waypointsListBox.Size = new System.Drawing.Size(240, 612);
+            this.waypointsListBox.TabIndex = 5;
             // 
-            // AlturatrackBar
+            // pauseResumeBtn
             // 
-            this.AlturatrackBar.Location = new System.Drawing.Point(38, 275);
-            this.AlturatrackBar.Margin = new System.Windows.Forms.Padding(4);
-            this.AlturatrackBar.Maximum = 100;
-            this.AlturatrackBar.Name = "AlturatrackBar";
-            this.AlturatrackBar.Size = new System.Drawing.Size(242, 56);
-            this.AlturatrackBar.TabIndex = 40;
-            this.AlturatrackBar.TickFrequency = 5;
-            this.AlturatrackBar.Scroll += new System.EventHandler(this.AlturatrackBar_Scroll);
+            this.pauseResumeBtn.Enabled = false;
+            this.pauseResumeBtn.Location = new System.Drawing.Point(835, 730);
+            this.pauseResumeBtn.Name = "pauseResumeBtn";
+            this.pauseResumeBtn.Size = new System.Drawing.Size(110, 40);
+            this.pauseResumeBtn.TabIndex = 4;
+            this.pauseResumeBtn.Text = "Pausar Vuelo";
+            this.pauseResumeBtn.UseVisualStyleBackColor = true;
+            this.pauseResumeBtn.Click += new System.EventHandler(this.pauseResumeBtn_Click);
             // 
-            // Alt_changeTrackBar
+            // stopFlightBtn
             // 
-            this.Alt_changeTrackBar.Location = new System.Drawing.Point(305, 275);
-            this.Alt_changeTrackBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Alt_changeTrackBar.Maximum = 100;
-            this.Alt_changeTrackBar.Name = "Alt_changeTrackBar";
-            this.Alt_changeTrackBar.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.Alt_changeTrackBar.Size = new System.Drawing.Size(56, 232);
-            this.Alt_changeTrackBar.TabIndex = 43;
-            this.Alt_changeTrackBar.TickFrequency = 5;
-            this.Alt_changeTrackBar.Scroll += new System.EventHandler(this.Alt_changeTrackBar_Scroll);
-            this.Alt_changeTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Alt_changeTrackBar_MouseUp);
+            this.stopFlightBtn.Location = new System.Drawing.Point(900, 730);
+            this.stopFlightBtn.Name = "stopFlightBtn";
+            this.stopFlightBtn.Size = new System.Drawing.Size(110, 40);
+            this.stopFlightBtn.TabIndex = 3;
+            this.stopFlightBtn.Text = "Detener Vuelo";
+            this.stopFlightBtn.UseVisualStyleBackColor = true;
+            this.stopFlightBtn.Click += new System.EventHandler(this.stopFlightBtn_Click);
             // 
-            // label8
+            // startFlightBtn
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(291, 223);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 20);
-            this.label8.TabIndex = 45;
-            this.label8.Text = "Altura";
+            this.startFlightBtn.Location = new System.Drawing.Point(770, 730);
+            this.startFlightBtn.Name = "startFlightBtn";
+            this.startFlightBtn.Size = new System.Drawing.Size(110, 40);
+            this.startFlightBtn.TabIndex = 2;
+            this.startFlightBtn.Text = "Iniciar Vuelo";
+            this.startFlightBtn.UseVisualStyleBackColor = true;
+            this.startFlightBtn.Click += new System.EventHandler(this.startFlightBtn_Click);
             // 
-            // AltChangeLbl
+            // loadWaypointsBtn
             // 
-            this.AltChangeLbl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.AltChangeLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AltChangeLbl.ForeColor = System.Drawing.Color.Red;
-            this.AltChangeLbl.Location = new System.Drawing.Point(295, 249);
-            this.AltChangeLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.AltChangeLbl.Name = "AltChangeLbl";
-            this.AltChangeLbl.Size = new System.Drawing.Size(64, 24);
-            this.AltChangeLbl.TabIndex = 44;
-            this.AltChangeLbl.Text = "0";
-            this.AltChangeLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.AltChangeLbl.Click += new System.EventHandler(this.AltChangeLbl_Click);
+            this.loadWaypointsBtn.Location = new System.Drawing.Point(770, 15);
+            this.loadWaypointsBtn.Name = "loadWaypointsBtn";
+            this.loadWaypointsBtn.Size = new System.Drawing.Size(240, 40);
+            this.loadWaypointsBtn.TabIndex = 1;
+            this.loadWaypointsBtn.Text = "Cargar Waypoints desde archivo";
+            this.loadWaypointsBtn.UseVisualStyleBackColor = true;
+            this.loadWaypointsBtn.Click += new System.EventHandler(this.loadWaypointsBtn_Click);
             // 
-            // mapPanel
+            // flightMapPanel
             // 
-            this.mapPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mapPanel.Location = new System.Drawing.Point(429, 50);
-            this.mapPanel.Name = "mapPanel";
-            this.mapPanel.Size = new System.Drawing.Size(575, 413);
-            this.mapPanel.TabIndex = 46;
-            // 
-            // videoPictureBox
-            // 
-            this.videoPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.videoPictureBox.Location = new System.Drawing.Point(429, 481);
-            this.videoPictureBox.Name = "videoPictureBox";
-            this.videoPictureBox.Size = new System.Drawing.Size(575, 320);
-            this.videoPictureBox.TabIndex = 47;
-            this.videoPictureBox.TabStop = false;
+            this.flightMapPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flightMapPanel.Location = new System.Drawing.Point(6, 6);
+            this.flightMapPanel.Name = "flightMapPanel";
+            this.flightMapPanel.Size = new System.Drawing.Size(750, 700);
+            this.flightMapPanel.TabIndex = 0;
             // 
             // tabPageLoadBD
             // 
             this.tabPageLoadBD.AutoScroll = true;
             this.tabPageLoadBD.Controls.Add(this.bdMapPanel);
             this.tabPageLoadBD.Controls.Add(this.vuelosLabel);
-            this.tabPageLoadBD.Controls.Add(this.vuelosComboBox);
+            this.tabPageLoadBD.Controls.Add(this.vuelosListBox);
+            this.tabPageLoadBD.Controls.Add(this.vuelosPageLabel);
+            this.tabPageLoadBD.Controls.Add(this.vuelosPreviousBtn);
+            this.tabPageLoadBD.Controls.Add(this.vuelosNextBtn);
             this.tabPageLoadBD.Controls.Add(this.loadFromDBBtn);
             this.tabPageLoadBD.Controls.Add(this.bdWaypointsLabel);
             this.tabPageLoadBD.Controls.Add(this.bdWaypointsListBox);
@@ -781,7 +821,7 @@
             this.tabPageLoadBD.Location = new System.Drawing.Point(4, 25);
             this.tabPageLoadBD.Name = "tabPageLoadBD";
             this.tabPageLoadBD.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLoadBD.Size = new System.Drawing.Size(1029, 1026);
+            this.tabPageLoadBD.Size = new System.Drawing.Size(1029, 538);
             this.tabPageLoadBD.TabIndex = 2;
             this.tabPageLoadBD.Text = "Cargar Vuelo BD";
             this.tabPageLoadBD.UseVisualStyleBackColor = true;
@@ -789,36 +829,69 @@
             // bdMapPanel
             // 
             this.bdMapPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.bdMapPanel.Location = new System.Drawing.Point(6, 6);
+            this.bdMapPanel.Location = new System.Drawing.Point(260, 6);
             this.bdMapPanel.Name = "bdMapPanel";
-            this.bdMapPanel.Size = new System.Drawing.Size(750, 700);
+            this.bdMapPanel.Size = new System.Drawing.Size(760, 350);
             this.bdMapPanel.TabIndex = 0;
             // 
             // vuelosLabel
             // 
-            this.vuelosLabel.AutoSize = false;
             this.vuelosLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.vuelosLabel.Location = new System.Drawing.Point(770, 15);
+            this.vuelosLabel.Location = new System.Drawing.Point(6, 6);
             this.vuelosLabel.Name = "vuelosLabel";
-            this.vuelosLabel.Size = new System.Drawing.Size(240, 20);
+            this.vuelosLabel.Size = new System.Drawing.Size(250, 20);
             this.vuelosLabel.TabIndex = 1;
             this.vuelosLabel.Text = "Vuelos disponibles:";
             // 
-            // vuelosComboBox
+            // vuelosListBox
             // 
-            this.vuelosComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.vuelosComboBox.Font = new System.Drawing.Font("Arial", 10F);
-            this.vuelosComboBox.FormattingEnabled = true;
-            this.vuelosComboBox.Location = new System.Drawing.Point(770, 40);
-            this.vuelosComboBox.Name = "vuelosComboBox";
-            this.vuelosComboBox.Size = new System.Drawing.Size(240, 28);
-            this.vuelosComboBox.TabIndex = 2;
+            this.vuelosListBox.Font = new System.Drawing.Font("Arial", 9F);
+            this.vuelosListBox.FormattingEnabled = true;
+            this.vuelosListBox.ItemHeight = 17;
+            this.vuelosListBox.Location = new System.Drawing.Point(6, 28);
+            this.vuelosListBox.Name = "vuelosListBox";
+            this.vuelosListBox.Size = new System.Drawing.Size(250, 242);
+            this.vuelosListBox.TabIndex = 2;
+            this.vuelosListBox.DoubleClick += new System.EventHandler(this.VuelosListBox_DoubleClick);
+            // 
+            // vuelosPageLabel
+            // 
+            this.vuelosPageLabel.AutoSize = true;
+            this.vuelosPageLabel.Font = new System.Drawing.Font("Arial", 8F);
+            this.vuelosPageLabel.Location = new System.Drawing.Point(9, 268);
+            this.vuelosPageLabel.Name = "vuelosPageLabel";
+            this.vuelosPageLabel.Size = new System.Drawing.Size(95, 16);
+            this.vuelosPageLabel.TabIndex = 20;
+            this.vuelosPageLabel.Text = "Página 1 de 1";
+            // 
+            // vuelosPreviousBtn
+            // 
+            this.vuelosPreviousBtn.Font = new System.Drawing.Font("Arial", 8F);
+            this.vuelosPreviousBtn.Location = new System.Drawing.Point(6, 285);
+            this.vuelosPreviousBtn.Name = "vuelosPreviousBtn";
+            this.vuelosPreviousBtn.Size = new System.Drawing.Size(120, 25);
+            this.vuelosPreviousBtn.TabIndex = 21;
+            this.vuelosPreviousBtn.Text = "← Anterior";
+            this.vuelosPreviousBtn.UseVisualStyleBackColor = true;
+            this.vuelosPreviousBtn.Click += new System.EventHandler(this.VuelosPreviousBtn_Click);
+            // 
+            // vuelosNextBtn
+            // 
+            this.vuelosNextBtn.Font = new System.Drawing.Font("Arial", 8F);
+            this.vuelosNextBtn.Location = new System.Drawing.Point(136, 285);
+            this.vuelosNextBtn.Name = "vuelosNextBtn";
+            this.vuelosNextBtn.Size = new System.Drawing.Size(120, 25);
+            this.vuelosNextBtn.TabIndex = 22;
+            this.vuelosNextBtn.Text = "Siguiente →";
+            this.vuelosNextBtn.UseVisualStyleBackColor = true;
+            this.vuelosNextBtn.Click += new System.EventHandler(this.VuelosNextBtn_Click);
             // 
             // loadFromDBBtn
             // 
-            this.loadFromDBBtn.Location = new System.Drawing.Point(770, 80);
+            this.loadFromDBBtn.Font = new System.Drawing.Font("Arial", 9F);
+            this.loadFromDBBtn.Location = new System.Drawing.Point(6, 316);
             this.loadFromDBBtn.Name = "loadFromDBBtn";
-            this.loadFromDBBtn.Size = new System.Drawing.Size(240, 40);
+            this.loadFromDBBtn.Size = new System.Drawing.Size(250, 40);
             this.loadFromDBBtn.TabIndex = 3;
             this.loadFromDBBtn.Text = "Cargar Waypoints";
             this.loadFromDBBtn.UseVisualStyleBackColor = true;
@@ -826,11 +899,10 @@
             // 
             // bdWaypointsLabel
             // 
-            this.bdWaypointsLabel.AutoSize = false;
             this.bdWaypointsLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.bdWaypointsLabel.Location = new System.Drawing.Point(770, 135);
+            this.bdWaypointsLabel.Location = new System.Drawing.Point(260, 360);
             this.bdWaypointsLabel.Name = "bdWaypointsLabel";
-            this.bdWaypointsLabel.Size = new System.Drawing.Size(240, 20);
+            this.bdWaypointsLabel.Size = new System.Drawing.Size(760, 20);
             this.bdWaypointsLabel.TabIndex = 4;
             this.bdWaypointsLabel.Text = "Waypoints (0)";
             // 
@@ -838,26 +910,16 @@
             // 
             this.bdWaypointsListBox.Font = new System.Drawing.Font("Arial", 9F);
             this.bdWaypointsListBox.FormattingEnabled = true;
-            this.bdWaypointsListBox.ItemHeight = 14;
-            this.bdWaypointsListBox.Location = new System.Drawing.Point(770, 158);
+            this.bdWaypointsListBox.ItemHeight = 17;
+            this.bdWaypointsListBox.Location = new System.Drawing.Point(260, 380);
             this.bdWaypointsListBox.Name = "bdWaypointsListBox";
-            this.bdWaypointsListBox.Size = new System.Drawing.Size(240, 540);
+            this.bdWaypointsListBox.Size = new System.Drawing.Size(760, 140);
             this.bdWaypointsListBox.TabIndex = 5;
-            // 
-            // startBDFlightBtn
-            // 
-            this.startBDFlightBtn.Location = new System.Drawing.Point(770, 730);
-            this.startBDFlightBtn.Name = "startBDFlightBtn";
-            this.startBDFlightBtn.Size = new System.Drawing.Size(110, 40);
-            this.startBDFlightBtn.TabIndex = 6;
-            this.startBDFlightBtn.Text = "Iniciar Vuelo";
-            this.startBDFlightBtn.UseVisualStyleBackColor = true;
-            this.startBDFlightBtn.Click += new System.EventHandler(this.startBDFlightBtn_Click);
             // 
             // pauseResumeBDBtn
             // 
             this.pauseResumeBDBtn.Enabled = false;
-            this.pauseResumeBDBtn.Location = new System.Drawing.Point(835, 730);
+            this.pauseResumeBDBtn.Location = new System.Drawing.Point(131, 362);
             this.pauseResumeBDBtn.Name = "pauseResumeBDBtn";
             this.pauseResumeBDBtn.Size = new System.Drawing.Size(110, 40);
             this.pauseResumeBDBtn.TabIndex = 7;
@@ -865,9 +927,19 @@
             this.pauseResumeBDBtn.UseVisualStyleBackColor = true;
             this.pauseResumeBDBtn.Click += new System.EventHandler(this.pauseResumeBDBtn_Click);
             // 
+            // startBDFlightBtn
+            // 
+            this.startBDFlightBtn.Location = new System.Drawing.Point(16, 362);
+            this.startBDFlightBtn.Name = "startBDFlightBtn";
+            this.startBDFlightBtn.Size = new System.Drawing.Size(110, 40);
+            this.startBDFlightBtn.TabIndex = 6;
+            this.startBDFlightBtn.Text = "Iniciar Vuelo";
+            this.startBDFlightBtn.UseVisualStyleBackColor = true;
+            this.startBDFlightBtn.Click += new System.EventHandler(this.startBDFlightBtn_Click);
+            // 
             // stopBDFlightBtn
             // 
-            this.stopBDFlightBtn.Location = new System.Drawing.Point(900, 730);
+            this.stopBDFlightBtn.Location = new System.Drawing.Point(75, 408);
             this.stopBDFlightBtn.Name = "stopBDFlightBtn";
             this.stopBDFlightBtn.Size = new System.Drawing.Size(110, 40);
             this.stopBDFlightBtn.TabIndex = 8;
@@ -875,79 +947,44 @@
             this.stopBDFlightBtn.UseVisualStyleBackColor = true;
             this.stopBDFlightBtn.Click += new System.EventHandler(this.stopBDFlightBtn_Click);
             // 
-            // startVideoBtn
+            // menuStrip1
             // 
-            this.startVideoBtn.Location = new System.Drawing.Point(429, 813);
-            this.startVideoBtn.Name = "startVideoBtn";
-            this.startVideoBtn.Size = new System.Drawing.Size(130, 40);
-            this.startVideoBtn.TabIndex = 49;
-            this.startVideoBtn.Text = "Start Video";
-            this.startVideoBtn.UseVisualStyleBackColor = true;
-            this.startVideoBtn.Click += new System.EventHandler(this.startVideoBtn_Click);
-            // 
-            // stopVideoBtn
-            // 
-            this.stopVideoBtn.Location = new System.Drawing.Point(575, 813);
-            this.stopVideoBtn.Name = "stopVideoBtn";
-            this.stopVideoBtn.Size = new System.Drawing.Size(130, 40);
-            this.stopVideoBtn.TabIndex = 50;
-            this.stopVideoBtn.Text = "Stop Video";
-            this.stopVideoBtn.UseVisualStyleBackColor = true;
-            this.stopVideoBtn.Click += new System.EventHandler(this.stopVideoBtn_Click);
-            // 
-            // captureBtn
-            // 
-            this.captureBtn.Location = new System.Drawing.Point(724, 813);
-            this.captureBtn.Name = "captureBtn";
-            this.captureBtn.Size = new System.Drawing.Size(130, 40);
-            this.captureBtn.TabIndex = 51;
-            this.captureBtn.Text = "Capturar Imagen";
-            this.captureBtn.UseVisualStyleBackColor = true;
-            this.captureBtn.Click += new System.EventHandler(this.captureBtn_Click);
-            // 
-            // galleryBtn
-            // 
-            this.galleryBtn.Location = new System.Drawing.Point(874, 813);
-            this.galleryBtn.Name = "galleryBtn";
-            this.galleryBtn.Size = new System.Drawing.Size(130, 40);
-            this.galleryBtn.TabIndex = 52;
-            this.galleryBtn.Text = "Abrir Galeria";
-            this.galleryBtn.UseVisualStyleBackColor = true;
-            this.galleryBtn.Click += new System.EventHandler(this.galleryBtn_Click);
-            // 
-            // detectionPanel
-            // 
-            this.detectionPanel.AutoScroll = true;
-            this.detectionPanel.Location = new System.Drawing.Point(429, 892);
-            this.detectionPanel.Name = "detectionPanel";
-            this.detectionPanel.Size = new System.Drawing.Size(575, 119);
-            this.detectionPanel.TabIndex = 53;
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1037, 24);
+            this.menuStrip1.TabIndex = 33;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1037, 1055);
+            this.ClientSize = new System.Drawing.Size(1037, 591);
             this.Controls.Add(this.mainTabControl);
             this.Controls.Add(this.menuStrip1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.headingTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.velocidadTrackBar)).EndInit();
+            this.mainTabControl.ResumeLayout(false);
+            this.tabPageControl.ResumeLayout(false);
+            this.tabPageControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.videoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Alt_changeTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlturatrackBar)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.headingTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.velocidadTrackBar)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.AlturatrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Alt_changeTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.videoPictureBox)).EndInit();
-            this.tabPageControl.ResumeLayout(false);
             this.tabPageFlight.ResumeLayout(false);
             this.tabPageFlight.PerformLayout();
-            this.mainTabControl.ResumeLayout(false);
+            this.tabPageLoadBD.ResumeLayout(false);
+            this.tabPageLoadBD.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1016,8 +1053,11 @@
         private System.Windows.Forms.TabPage tabPageLoadBD;
         private System.Windows.Forms.Panel bdMapPanel;
         private System.Windows.Forms.Button loadFromDBBtn;
-        private System.Windows.Forms.ComboBox vuelosComboBox;
+        private System.Windows.Forms.ListBox vuelosListBox;
         private System.Windows.Forms.Label vuelosLabel;
+        private System.Windows.Forms.Label vuelosPageLabel;
+        private System.Windows.Forms.Button vuelosPreviousBtn;
+        private System.Windows.Forms.Button vuelosNextBtn;
         private System.Windows.Forms.ListBox bdWaypointsListBox;
         private System.Windows.Forms.Label bdWaypointsLabel;
         private System.Windows.Forms.Button startBDFlightBtn;

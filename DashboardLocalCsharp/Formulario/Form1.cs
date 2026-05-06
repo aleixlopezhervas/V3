@@ -105,6 +105,12 @@ namespace Formulario
         private bool bdIsFlying = false;
         private bool bdIsPaused = false;
         private System.Windows.Forms.Timer bdWaypointTimer;
+
+        // Variables de paginación para vuelos
+        private int flightPageIndex = 0;
+        private const int VUELOS_POR_PAGINA = 10;
+        private List<VueloDto> allVuelosCache = new List<VueloDto>();
+
         public Form1()
         {
             InitializeComponent();
@@ -889,7 +895,41 @@ namespace Formulario
 
                     if (waypoints.Count > 0)
                     {
-                        flightGmap.Position = waypoints[0].Position;
+                        // Calcular los límites de todos los waypoints para centrar el mapa
+                        double minLat = waypoints[0].Position.Lat;
+                        double maxLat = waypoints[0].Position.Lat;
+                        double minLng = waypoints[0].Position.Lng;
+                        double maxLng = waypoints[0].Position.Lng;
+
+                        foreach (var wp in waypoints)
+                        {
+                            if (wp.Position.Lat < minLat) minLat = wp.Position.Lat;
+                            if (wp.Position.Lat > maxLat) maxLat = wp.Position.Lat;
+                            if (wp.Position.Lng < minLng) minLng = wp.Position.Lng;
+                            if (wp.Position.Lng > maxLng) maxLng = wp.Position.Lng;
+                        }
+
+                        // Calcular el centro de los waypoints
+                        double centerLat = (minLat + maxLat) / 2;
+                        double centerLng = (minLng + maxLng) / 2;
+                        flightGmap.Position = new PointLatLng(centerLat, centerLng);
+
+                        // Ajustar el zoom para que se vean todos los waypoints
+                        double maxDistance = 0;
+                        foreach (var wp in waypoints)
+                        {
+                            double dLat = Math.Abs(wp.Position.Lat - centerLat);
+                            double dLng = Math.Abs(wp.Position.Lng - centerLng);
+                            double distance = Math.Sqrt(dLat * dLat + dLng * dLng);
+                            if (distance > maxDistance) maxDistance = distance;
+                        }
+
+                        // Ajustar zoom basado en la distancia (aproximado)
+                        if (maxDistance > 0.1) flightGmap.Zoom = 13;
+                        else if (maxDistance > 0.01) flightGmap.Zoom = 16;
+                        else if (maxDistance > 0.001) flightGmap.Zoom = 18;
+                        else flightGmap.Zoom = 19;
+
                         MessageBox.Show($"Se cargaron {waypoints.Count} waypoints correctamente.", "Éxito");
                     }
                 }
@@ -1077,22 +1117,23 @@ namespace Formulario
                 _droneAPIService = new DroneAPIService(API_BASE);
                 var vuelos = await _droneAPIService.ObtenerTodosVuelosAsync();
 
-                vuelosComboBox.Items.Clear();
-
+                // Almacenar todos los vuelos en cache
+                allVuelosCache.Clear();
                 foreach (var vuelo in vuelos)
                 {
-                    vuelosComboBox.Items.Add(new VueloDto
+                    allVuelosCache.Add(new VueloDto
                     {
                         Id = vuelo.ID,
                         Nametag = vuelo.NameTag,
                         Datetime = vuelo.Fecha.ToString("yyyy-MM-dd HH:mm:ss")
                     });
-
-                    Console.WriteLine($"✓ Vuelo agregado: ID={vuelo.ID}, Nametag={vuelo.NameTag}");
                 }
 
-                if (vuelosComboBox.Items.Count > 0)
-                    vuelosComboBox.SelectedIndex = 0;
+                Console.WriteLine($"✓ Total de vuelos cargados: {allVuelosCache.Count}");
+
+                // Mostrar la primera página
+                flightPageIndex = 0;
+                MostrarPaginaVuelos();
             }
             catch (Exception ex)
             {
@@ -1101,15 +1142,78 @@ namespace Formulario
             }
         }
 
+        private void MostrarPaginaVuelos()
+        {
+            vuelosListBox.Items.Clear();
+
+            int inicio = flightPageIndex * VUELOS_POR_PAGINA;
+            int fin = Math.Min(inicio + VUELOS_POR_PAGINA, allVuelosCache.Count);
+
+            // Si no hay vuelos en esta página, volver a la anterior
+            if (inicio >= allVuelosCache.Count && flightPageIndex > 0)
+            {
+                flightPageIndex--;
+                MostrarPaginaVuelos();
+                return;
+            }
+
+            // Agregar vuelos de esta página a la ListBox
+            for (int i = inicio; i < fin; i++)
+            {
+                vuelosListBox.Items.Add(allVuelosCache[i]);
+                Console.WriteLine($"✓ Vuelo página actual: ID={allVuelosCache[i].Id}, Nametag={allVuelosCache[i].Nametag}");
+            }
+
+            // Actualizar etiqueta de página
+            int paginaActual = flightPageIndex + 1;
+            int totalPaginas = (allVuelosCache.Count + VUELOS_POR_PAGINA - 1) / VUELOS_POR_PAGINA;
+            vuelosPageLabel.Text = $"Página {paginaActual} de {totalPaginas} ({allVuelosCache.Count} vuelos)";
+
+            // Habilitar/deshabilitar botones de navegación
+            vuelosPreviousBtn.Enabled = flightPageIndex > 0;
+            vuelosNextBtn.Enabled = (flightPageIndex + 1) < totalPaginas;
+
+            if (vuelosListBox.Items.Count > 0)
+                vuelosListBox.SelectedIndex = 0;
+        }
+
+        private void VuelosPreviousBtn_Click(object sender, EventArgs e)
+        {
+            if (flightPageIndex > 0)
+            {
+                flightPageIndex--;
+                MostrarPaginaVuelos();
+            }
+        }
+
+        private void VuelosNextBtn_Click(object sender, EventArgs e)
+        {
+            int totalPaginas = (allVuelosCache.Count + VUELOS_POR_PAGINA - 1) / VUELOS_POR_PAGINA;
+            if (flightPageIndex + 1 < totalPaginas)
+            {
+                flightPageIndex++;
+                MostrarPaginaVuelos();
+            }
+        }
+
         private async void loadFromDBBtn_Click(object sender, EventArgs e)
         {
-            if (vuelosComboBox.SelectedItem == null)
+            if (vuelosListBox.SelectedItem == null)
             {
                 MessageBox.Show("Selecciona un vuelo de la lista.");
                 return;
             }
 
-            var vuelo = (VueloDto)vuelosComboBox.SelectedItem;
+            var vuelo = (VueloDto)vuelosListBox.SelectedItem;
+            await CargarWaypointsBD(vuelo.Id);
+        }
+
+        private async void VuelosListBox_DoubleClick(object sender, EventArgs e)
+        {
+            if (vuelosListBox.SelectedItem == null)
+                return;
+
+            var vuelo = (VueloDto)vuelosListBox.SelectedItem;
             await CargarWaypointsBD(vuelo.Id);
         }
 
@@ -1184,7 +1288,42 @@ namespace Formulario
 
                 if (bdWaypoints.Count > 0)
                 {
-                    bdGmap.Position = bdWaypoints[0].Position;
+                    // Calcular los límites de todos los waypoints para centrar el mapa
+                    double minLat = bdWaypoints[0].Position.Lat;
+                    double maxLat = bdWaypoints[0].Position.Lat;
+                    double minLng = bdWaypoints[0].Position.Lng;
+                    double maxLng = bdWaypoints[0].Position.Lng;
+
+                    foreach (var wp in bdWaypoints)
+                    {
+                        if (wp.Position.Lat < minLat) minLat = wp.Position.Lat;
+                        if (wp.Position.Lat > maxLat) maxLat = wp.Position.Lat;
+                        if (wp.Position.Lng < minLng) minLng = wp.Position.Lng;
+                        if (wp.Position.Lng > maxLng) maxLng = wp.Position.Lng;
+                    }
+
+                    // Calcular el centro de los waypoints
+                    double centerLat = (minLat + maxLat) / 2;
+                    double centerLng = (minLng + maxLng) / 2;
+                    bdGmap.Position = new PointLatLng(centerLat, centerLng);
+
+                    // Ajustar el zoom para que se vean todos los waypoints
+                    // Calcular la distancia máxima entre waypoints
+                    double maxDistance = 0;
+                    foreach (var wp in bdWaypoints)
+                    {
+                        double dLat = Math.Abs(wp.Position.Lat - centerLat);
+                        double dLng = Math.Abs(wp.Position.Lng - centerLng);
+                        double distance = Math.Sqrt(dLat * dLat + dLng * dLng);
+                        if (distance > maxDistance) maxDistance = distance;
+                    }
+
+                    // Ajustar zoom basado en la distancia (aproximado)
+                    if (maxDistance > 0.1) bdGmap.Zoom = 13;
+                    else if (maxDistance > 0.01) bdGmap.Zoom = 16;
+                    else if (maxDistance > 0.001) bdGmap.Zoom = 18;
+                    else bdGmap.Zoom = 19;
+
                     MessageBox.Show($"Cargados {bdWaypoints.Count} waypoints.", "Éxito");
                 }
                 else
