@@ -1246,6 +1246,24 @@ namespace Formulario
                 pauseResumeBDBtn.Text = "Pausar Vuelo";
                 pauseResumeBDBtn.BackColor = SystemColors.Control;
                 Console.WriteLine("Vuelo reanudado desde waypoint " + (bdCurrentWaypointIndex + 1));
+
+                // ✅ Enviar comando nuevamente al dron para continuar hacia el waypoint actual
+                if (bdCurrentWaypointIndex < bdWaypoints.Count)
+                {
+                    var wp = bdWaypoints[bdCurrentWaypointIndex];
+                    ThreadPool.QueueUserWorkItem(_ =>
+                    {
+                        try
+                        {
+                            dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
+                            Console.WriteLine($"Reanudado: Dirigiéndose a waypoint {bdCurrentWaypointIndex + 1}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error al reanudar vuelo: {ex.Message}");
+                        }
+                    });
+                }
             }
             else
             {
@@ -1270,6 +1288,24 @@ namespace Formulario
                 pauseResumeBtn.Text = "Pausar Vuelo";
                 pauseResumeBtn.BackColor = SystemColors.Control;
                 Console.WriteLine("Vuelo reanudado desde waypoint " + (currentWaypointIndex + 1));
+
+                // ✅ Enviar comando nuevamente al dron para continuar hacia el waypoint actual
+                if (currentWaypointIndex < waypoints.Count)
+                {
+                    var wp = waypoints[currentWaypointIndex];
+                    ThreadPool.QueueUserWorkItem(_ =>
+                    {
+                        try
+                        {
+                            dron.IrAlPunto((float)wp.Lat, (float)wp.Lng, FLIGHT_ALTITUDE);
+                            Console.WriteLine($"Reanudado: Dirigiéndose a waypoint {currentWaypointIndex + 1}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error al reanudar vuelo: {ex.Message}");
+                        }
+                    });
+                }
             }
             else
             {
