@@ -1366,17 +1366,23 @@ namespace Formulario
             }
             bdWaypointTimer.Start();
 
+            Console.WriteLine($"[BD FLIGHT START] Iniciando vuelo con {bdWaypoints.Count} waypoints");
+            Console.WriteLine($"[TELEMETRIA ACTUAL] Lat={currentLatDeg:F8}, Lon={currentLonDeg:F8}, Alt={currentAlt:F2}m");
+
             // ✅ Ejecutar primer waypoint en ThreadPool para no bloquear UI
             var wp = bdWaypoints[bdCurrentWaypointIndex];
             ThreadPool.QueueUserWorkItem(_ =>
             {
                 try
                 {
+                    Console.WriteLine($"[COMANDO ENVIADO] IrAlPunto(Lat={wp.Position.Lat:F8}, Lon={wp.Position.Lng:F8}, Alt={wp.Altitud}m)");
                     dron.IrAlPunto((float)wp.Position.Lat, (float)wp.Position.Lng, wp.Altitud);
+                    Console.WriteLine($"[COMANDO COMPLETADO] IrAlPunto ejecutado sin excepciones");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error al navegar al primer waypoint: {ex.Message}");
+                    Console.WriteLine($"[ERROR] Al navegar al primer waypoint: {ex.Message}");
+                    Console.WriteLine($"[ERROR STACK] {ex.StackTrace}");
                 }
             });
         }
@@ -1498,6 +1504,7 @@ namespace Formulario
                 pauseResumeBDBtn.BackColor = SystemColors.Control;
                 pauseResumeBDBtn.Text = "Pausar Vuelo";
 
+                Console.WriteLine("[BD FLIGHT COMPLETE] Vuelo completado - Todos los waypoints alcanzados");
                 MessageBox.Show("Vuelo completado - Todos los waypoints alcanzados.");
 
                 bdTrace.Clear();
@@ -1511,7 +1518,11 @@ namespace Formulario
             if (bdIsPaused)
                 return;
 
-            if (double.IsNaN(currentLatDeg) || double.IsNaN(currentLonDeg)) return;
+            if (double.IsNaN(currentLatDeg) || double.IsNaN(currentLonDeg))
+            {
+                Console.WriteLine($"[WARNING] Telemetría NO disponible - Lat={currentLatDeg}, Lon={currentLonDeg}");
+                return;
+            }
 
             // Actualizar posición del dron en el mapa BD
             var dronePos = new PointLatLng(currentLatDeg, currentLonDeg);
@@ -1531,8 +1542,11 @@ namespace Formulario
             double dLat = Math.Abs(currentLatDeg - currentWp.Position.Lat);
             double dLon = Math.Abs(currentLonDeg - currentWp.Position.Lng);
 
+            Console.WriteLine($"[WAYPOINT {bdCurrentWaypointIndex + 1}] Actual: ({currentLatDeg:F8}, {currentLonDeg:F8}) | Target: ({currentWp.Position.Lat:F8}, {currentWp.Position.Lng:F8}) | ΔLat={dLat:E6}, ΔLon={dLon:E6} | Threshold={WAYPOINT_ARRIVAL_THRESHOLD:E6}");
+
             if (dLat < WAYPOINT_ARRIVAL_THRESHOLD && dLon < WAYPOINT_ARRIVAL_THRESHOLD)
             {
+                Console.WriteLine($"[WAYPOINT {bdCurrentWaypointIndex + 1} REACHED] ✓ Llegamos al waypoint");
                 bdCurrentWaypointIndex++;
                 if (bdCurrentWaypointIndex < bdWaypoints.Count)
                 {
@@ -1544,11 +1558,13 @@ namespace Formulario
                     {
                         try
                         {
+                            Console.WriteLine($"[COMANDO ENVIADO] IrAlPunto(Lat={nextWp.Position.Lat:F8}, Lon={nextWp.Position.Lng:F8}, Alt={nextWp.Altitud}m) - Waypoint {currentIndex + 1}");
                             dron.IrAlPunto((float)nextWp.Position.Lat, (float)nextWp.Position.Lng, nextWp.Altitud);
+                            Console.WriteLine($"[COMANDO COMPLETADO] Waypoint {currentIndex + 1}");
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Error al navegar a waypoint: {ex.Message}");
+                            Console.WriteLine($"[ERROR] Al navegar a waypoint {currentIndex + 1}: {ex.Message}");
                         }
                     });
 
